@@ -4,7 +4,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 // import {StyleSheet, View} from 'react-native';
 // import {appStyles} from './src/themes/Common-theme';
 import OpeningPage from './src/components/LoadingPage/OpeningPage';
-import Home from './src/features/Home/Home';
+import Home from './src/features/LandingPage/LandingPage';
 
 function App(): React.JSX.Element {
   const Stack = createNativeStackNavigator();

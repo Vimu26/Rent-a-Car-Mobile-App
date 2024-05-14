@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import {Image, View, StyleSheet, Text} from 'react-native';
+import {Image, View, StyleSheet} from 'react-native';
 import {appStyles} from '../../themes/Common-theme';
 
 const OpeningPage = ({navigation}: any) => {
@@ -13,12 +13,9 @@ const OpeningPage = ({navigation}: any) => {
 
   return (
     <View style={[styles.container, appStyles.mainDark]}>
-      <Text style={styles.text}>Rent a Car</Text>
       <Image
         style={styles.logo}
-        source={{
-          uri: 'https://www.freepnglogos.com/uploads/cleveland-auto-show-car-logo-png-25.png',
-        }}
+        source={require('../../assets/logo-no-background.png')}
       />
     </View>
   );
@@ -31,8 +28,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   logo: {
-    width: 300,
-    height: 200,
+    width: 200,
+    height: 150,
     resizeMode: 'contain',
   },
   text: {
