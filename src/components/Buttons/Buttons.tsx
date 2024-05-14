@@ -1,5 +1,5 @@
 import React from 'react';
-import {Button, View, TouchableOpacity, Text, StyleSheet} from 'react-native';
+import {TouchableOpacity, Text, StyleSheet} from 'react-native';
 
 export const PrimaryFullButton = ({onPress, title}: any) => {
   return (
@@ -11,9 +11,9 @@ export const PrimaryFullButton = ({onPress, title}: any) => {
 
 export const SecondaryFullButton = ({onPress, title}: any) => {
   return (
-    <View style={styles.container}>
-      <Button title={title} color="#acb4c4" onPress={onPress} />
-    </View>
+    <TouchableOpacity style={styles.container} onPress={onPress}>
+      <Text style={styles.text2}>{title}</Text>
+    </TouchableOpacity>
   );
 };
 
@@ -39,7 +39,14 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
+    width: 300,
     justifyContent: 'center',
     paddingHorizontal: 10,
+  },
+  text2: {
+    color: '#acb4c4',
+    textAlign: 'center',
+    fontSize: 18,
+    padding: 3,
   },
 });

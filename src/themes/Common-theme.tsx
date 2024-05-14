@@ -5,7 +5,7 @@ export const appStyles = StyleSheet.create({
     backgroundColor: '#6679c0',
   },
   mainDark: {
-    backgroundColor: '#242a43',
+    backgroundColor: '#1f2736',
   },
   background: {
     color: '#1f2736',

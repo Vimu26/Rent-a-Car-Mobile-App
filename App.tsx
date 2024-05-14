@@ -5,9 +5,24 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 // import {appStyles} from './src/themes/Common-theme';
 import OpeningPage from './src/components/LoadingPage/OpeningPage';
 import Home from './src/features/LandingPage/LandingPage';
+import SignUp from './src/features/SignUp/Signup';
+import {Image, StyleSheet, View} from 'react-native';
 
 function App(): React.JSX.Element {
   const Stack = createNativeStackNavigator();
+
+  const headerImage = () => {
+    return (
+      <View style={styles.outer}>
+        <View style={styles.viewHeader}>
+          <Image
+            source={require('./src/assets/logo-no-background.png')}
+            style={styles.imageView}
+          />
+        </View>
+      </View>
+    );
+  };
   return (
     <NavigationContainer>
       <Stack.Navigator
@@ -30,17 +45,45 @@ function App(): React.JSX.Element {
           component={Home}
           options={{headerShown: false}}
         />
+        <Stack.Screen
+          name="SignUp"
+          component={SignUp}
+          options={{
+            title: 'Welcome',
+            headerStyle: {
+              backgroundColor: '#6679c0',
+            },
+            header: () => headerImage(),
+            headerBackVisible: false,
+            // headerTitle: headerImage,
+          }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
 }
 
-// const styles = StyleSheet.create({
-//   imageView: {
-//     flex: 1,
-//     justifyContent: 'center',
-//     alignItems: 'center',
-//   },
-// });
+const styles = StyleSheet.create({
+  viewHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    height: 90,
+    justifyContent: 'center',
+    paddingTop: 20,
+    backgroundColor: '#272f3e',
+    borderBottomRightRadius: 35,
+    borderBottomLeftRadius: 35,
+    overflow: 'hidden',
+  },
+  imageView: {
+    width: 90,
+    height: 50,
+    objectFit: 'fill',
+    marginRight: 10,
+  },
+  outer: {
+    backgroundColor: '#1f2736',
+  },
+});
 
 export default App;
