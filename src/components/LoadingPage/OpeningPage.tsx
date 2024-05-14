@@ -1,14 +1,21 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Image, View, StyleSheet} from 'react-native';
+import {appStyles} from '../../themes/Common-theme';
 
-const OpeningPage = () => {
+const OpeningPage = ({navigation}: any) => {
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      navigation.navigate('Home');
+    }, 3000);
+
+    return () => clearTimeout(timer);
+  }, [navigation]);
+
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, appStyles.mainDark]}>
       <Image
-        style={styles.image}
-        source={{
-          uri: 'https://www.freepnglogos.com/uploads/cleveland-auto-show-car-logo-png-25.png',
-        }}
+        style={styles.logo}
+        source={require('../../assets/logo-no-background.png')}
       />
     </View>
   );
@@ -20,9 +27,15 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  image: {
-    width: 300,
-    height: 200,
+  logo: {
+    width: 200,
+    height: 150,
+    resizeMode: 'contain',
+  },
+  text: {
+    fontSize: 20,
+    color: '#acb4c4',
+    fontFamily: 'cursive',
   },
 });
 
