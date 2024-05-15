@@ -5,7 +5,7 @@ import {appStyles} from '../../themes/Common-theme';
 const OpeningPage = ({navigation}: any) => {
   useEffect(() => {
     const timer = setTimeout(() => {
-      navigation.navigate('Home');
+      navigation.navigate('Landing-Page');
     }, 3000);
 
     return () => clearTimeout(timer);

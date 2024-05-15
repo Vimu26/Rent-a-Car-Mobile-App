@@ -1,6 +1,7 @@
 import React from 'react';
-import {TouchableOpacity, Text, StyleSheet} from 'react-native';
+import {TouchableOpacity, Text, StyleSheet, View, Image} from 'react-native';
 
+//This Button With Background Color
 export const PrimaryFullButton = ({onPress, title}: any) => {
   return (
     <TouchableOpacity style={styles.button} onPress={onPress}>
@@ -9,6 +10,7 @@ export const PrimaryFullButton = ({onPress, title}: any) => {
   );
 };
 
+//This Button WithOut Background Color
 export const SecondaryFullButton = ({onPress, title}: any) => {
   return (
     <TouchableOpacity style={styles.container} onPress={onPress}>
@@ -17,15 +19,29 @@ export const SecondaryFullButton = ({onPress, title}: any) => {
   );
 };
 
+//This Button With dark Background and Image
+export const ImageButton = ({onPress, title, imageUrl}: any) => {
+  return (
+    <View style={styles.iconButton}>
+      <TouchableOpacity style={styles.imageIconContainer} onPress={onPress}>
+        <Image style={styles.icon} source={imageUrl} />
+        <Text style={styles.text2}>{title}</Text>
+      </TouchableOpacity>
+    </View>
+  );
+};
+
 const styles = StyleSheet.create({
   button: {
-    flex: 1,
     backgroundColor: '#6679c0',
     padding: 10,
     borderRadius: 5,
-    width: 300,
+    width: 320,
+    height: 50,
     color: 'white',
     textAlign: 'center',
+    justifyContent: 'center',
+    alignItems: 'center',
     display: 'flex',
     marginBottom: 8,
   },
@@ -38,8 +54,7 @@ const styles = StyleSheet.create({
     padding: 3,
   },
   container: {
-    flex: 1,
-    width: 300,
+    width: 320,
     justifyContent: 'center',
     paddingHorizontal: 10,
   },
@@ -48,5 +63,26 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: 18,
     padding: 3,
+  },
+  icon: {
+    height: 30,
+    width: 30,
+    resizeMode: 'stretch',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginRight: 10,
+  },
+  iconButton: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    backgroundColor: '#272f3e',
+    borderRadius: 5,
+  },
+  imageIconContainer: {
+    flexDirection: 'row',
+    width: 320,
+    height: 50,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });
