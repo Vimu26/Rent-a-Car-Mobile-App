@@ -83,13 +83,14 @@ const styles = StyleSheet.create({
   },
   header: {
     color: 'white',
-    fontSize: 25,
+    fontSize: 28,
     fontWeight: 'bold',
   },
   subHeader: {
     color: '#acb4c4',
     lineHeight: 30,
     fontSize: 18,
+    marginTop: 10,
     marginBottom: 20,
   },
   linkText: {
