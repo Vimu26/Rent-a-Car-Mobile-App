@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {Linking, StyleSheet, Text, View} from 'react-native';
 import {
   BothSideIconInputBox,
   LeftIconInputBox,
@@ -32,7 +32,7 @@ const SignUp = () => {
           InputType="email"
         />
       </View>
-      <View>
+      <View style={styles.passwordBox}>
         <BothSideIconInputBox
           value={password}
           KeyBoardType="default"
@@ -46,6 +46,22 @@ const SignUp = () => {
               : require('../../assets/icons8-not-visible-60.png')
           }
         />
+      </View>
+      <View style={styles.textWrapper}>
+        <Text style={styles.normalText}>
+          By Signing up, you agree to our{' '}
+          <Text
+            style={styles.linkText}
+            onPress={() => Linking.openURL('http://google.com')}>
+            Terms of Services
+          </Text>
+          <Text style={styles.normalText}> and </Text>
+          <Text
+            style={styles.linkText}
+            onPress={() => Linking.openURL('http://google.com')}>
+            Privacy Policy.
+          </Text>
+        </Text>
       </View>
     </View>
   );
@@ -62,6 +78,9 @@ const styles = StyleSheet.create({
   emailBox: {
     marginBottom: 15,
   },
+  passwordBox: {
+    marginBottom: 15,
+  },
   header: {
     color: 'white',
     fontSize: 25,
@@ -72,6 +91,16 @@ const styles = StyleSheet.create({
     lineHeight: 30,
     fontSize: 18,
     marginBottom: 20,
+  },
+  linkText: {
+    color: '#6679c0',
+  },
+  normalText: {
+    color: '#acb4c4',
+  },
+  textWrapper: {
+    marginLeft: 15,
+    marginRight: 15,
   },
 });
 
