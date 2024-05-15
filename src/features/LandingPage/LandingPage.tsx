@@ -6,23 +6,18 @@ import {
   SecondaryFullButton,
 } from '../../components/Buttons/Buttons';
 
-const Home = () => {
+const Home = ({navigation}: any) => {
   const continueAsGuest = () => {
     Alert.alert('Secondary Button pressed');
   };
 
   const getStarted = () => {
-    Alert.alert('Get Started Clicked');
+    navigation.navigate('SignUp');
   };
 
   return (
     <View style={[styles.container, appStyles.mainDark]}>
-      <Image
-        style={styles.logo}
-        source={{
-          uri: 'https://freepngimg.com/thumb/car/31510-9-car-transparent-background.png',
-        }}
-      />
+      <Image style={styles.logo} source={require('../../assets/car.png')} />
       <Text style={styles.textHeader}>Rent your Car easily from our app</Text>
       <Text style={styles.textDescription}>
         Find the car for perfect any {'\n'} occasion in minutes. Book it
