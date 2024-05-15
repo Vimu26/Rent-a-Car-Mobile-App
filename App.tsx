@@ -3,7 +3,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 // import {StyleSheet, View} from 'react-native';
 // import {appStyles} from './src/themes/Common-theme';
-import OpeningPage from './src/components/LoadingPage/OpeningPage';
+import OpeningPage from './src/features/LoadingPage/OpeningPage';
 import Home from './src/features/LandingPage/LandingPage';
 import SignUp from './src/features/SignUp/Signup';
 import {Image, StyleSheet, View} from 'react-native';
@@ -55,7 +55,6 @@ function App(): React.JSX.Element {
             },
             header: () => headerImage(),
             headerBackVisible: false,
-            // headerTitle: headerImage,
           }}
         />
       </Stack.Navigator>
