@@ -7,7 +7,7 @@ import {
   SafeAreaView,
   TouchableOpacity,
 } from 'react-native';
-import {appStyles} from '../themes/Common-theme';
+import {appStyles} from '../../themes/Common-theme';
 
 export const LeftIconInputBox = ({
   value,
@@ -22,7 +22,7 @@ export const LeftIconInputBox = ({
       <View style={styles.sectionStyle}>
         <Image source={imageUrl} style={styles.imageStyle} />
         <TextInput
-          style={styles.input}
+          style={styles.input1}
           value={value}
           keyboardType={KeyBoardType}
           placeholder={placeholder}
@@ -60,7 +60,7 @@ export const BothSideIconInputBox = ({
         <View style={styles.innerContainer}>
           <Image source={leftImageUrl} style={styles.imageStyle} />
           <TextInput
-            style={styles.input}
+            style={styles.input2}
             value={value}
             keyboardType={KeyBoardType}
             placeholder={placeholder}
@@ -88,19 +88,26 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     alignItems: 'center',
     borderColor: appStyles.Text.color,
-    borderWidth: 1,
+    borderWidth: 0.5,
     borderRadius: 10,
     paddingLeft: 10,
     paddingRight: 10,
     height: 60,
     width: 320,
   },
-  input: {
+  input2: {
     fontSize: 20,
     marginLeft: 5,
     color: 'white',
     overflow: 'hidden',
     width: 220,
+  },
+  input1: {
+    fontSize: 20,
+    marginLeft: 5,
+    color: 'white',
+    overflow: 'hidden',
+    width: 260,
   },
   imageStyle: {
     padding: 10,
@@ -120,7 +127,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     borderColor: appStyles.Text.color,
-    borderWidth: 1,
+    borderWidth: 0.5,
     borderRadius: 10,
     paddingLeft: 10,
     paddingRight: 10,

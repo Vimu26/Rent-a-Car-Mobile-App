@@ -6,7 +6,7 @@ import {
   SecondaryFullButton,
 } from '../../components/Buttons/Buttons';
 
-const Home = ({navigation}: any) => {
+const LandingPage = ({navigation}: any) => {
   const continueAsGuest = () => {
     Alert.alert('Secondary Button pressed');
   };
@@ -71,4 +71,4 @@ export const styles = StyleSheet.create({
   },
 });
 
-export default Home;
+export default LandingPage;
