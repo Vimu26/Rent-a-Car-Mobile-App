@@ -82,7 +82,56 @@ export const BothSideIconInputBox = ({
   );
 };
 
+export const SearchInputBox = ({
+  value,
+  KeyBoardType,
+  onChangeTextBox,
+  placeholder,
+  InputType,
+  imageUrl,
+  width,
+  borderWidth,
+  backgroundColor,
+  borderColor,
+}: any) => {
+  return (
+    <SafeAreaView>
+      <View
+        style={[
+          styles.inputSectionStyle,
+          {
+            width: width,
+            borderWidth: borderWidth,
+            backgroundColor: backgroundColor,
+            borderColor: borderColor,
+          },
+        ]}>
+        <Image source={imageUrl} style={styles.imageStyle} />
+        <TextInput
+          style={styles.input1}
+          value={value}
+          keyboardType={KeyBoardType}
+          placeholder={placeholder}
+          onChangeText={onChangeTextBox}
+          cursorColor="white"
+          inputMode={InputType}
+          placeholderTextColor={appStyles.Text.color}
+          underlineColorAndroid="transparent"
+        />
+      </View>
+    </SafeAreaView>
+  );
+};
+
 const styles = StyleSheet.create({
+  inputSectionStyle: {
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    borderRadius: 10,
+    height: 60,
+    paddingHorizontal: 10,
+  },
   sectionStyle: {
     flexDirection: 'row',
     justifyContent: 'flex-start',
@@ -90,8 +139,7 @@ const styles = StyleSheet.create({
     borderColor: appStyles.Text.color,
     borderWidth: 0.5,
     borderRadius: 10,
-    paddingLeft: 10,
-    paddingRight: 10,
+    paddingHorizontal: 10,
     height: 60,
     width: 320,
   },
