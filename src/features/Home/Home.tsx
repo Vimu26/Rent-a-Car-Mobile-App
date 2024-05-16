@@ -59,7 +59,6 @@ const Home = () => {
   ];
 
   const handleInputChange = (text: string) => {
-    console.log(text);
     setSearchInput(text);
   };
   const onClickFilter = () => {
@@ -161,7 +160,7 @@ const Home = () => {
                   />
                   <Image
                     style={styles.favIcon}
-                    source={require('../../assets/common/noLike.png')}
+                    source={require('../../assets/common/liked.png')}
                   />
                 </View>
                 <View style={styles.cardImg}>
@@ -192,7 +191,7 @@ const Home = () => {
                   />
                   <Image
                     style={styles.favIcon}
-                    source={require('../../assets/common/noLike.png')}
+                    source={require('../../assets/common/Favorite.png')}
                   />
                 </View>
                 <View style={styles.cardImg}>
