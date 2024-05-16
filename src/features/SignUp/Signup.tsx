@@ -20,8 +20,6 @@ const SignUp = ({navigation}: any) => {
   };
 
   const handleSignUp = () => {
-    console.log(email, password);
-    console.log(navigation);
     navigation.navigate('Home');
   };
 

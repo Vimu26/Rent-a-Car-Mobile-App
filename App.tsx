@@ -5,7 +5,8 @@ import OpeningPage from './src/features/LoadingPage/OpeningPage';
 import SignUp from './src/features/SignUp/Signup';
 import {Image, StyleSheet, View} from 'react-native';
 import LandingPage from './src/features/LandingPage/LandingPage';
-import Home from './src/features/Home/Home';
+import BottomTabNavigator from './src/components/BottomTab/BottomTab';
+import {appStyles} from './src/themes/Common-theme';
 
 function App(): React.JSX.Element {
   const Stack = createNativeStackNavigator();
@@ -58,9 +59,14 @@ function App(): React.JSX.Element {
         />
         <Stack.Screen
           name="Home"
-          component={Home}
-          // options={{headerShown: false}}
-        />
+          options={{
+            // headerShown: false,
+            headerStyle: {
+              backgroundColor: appStyles.background.color,
+            },
+          }}>
+          {() => <BottomTabNavigator />}
+        </Stack.Screen>
       </Stack.Navigator>
     </NavigationContainer>
   );
