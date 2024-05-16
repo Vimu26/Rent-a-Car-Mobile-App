@@ -31,6 +31,23 @@ export const ImageButton = ({onPress, title, imageUrl}: any) => {
   );
 };
 
+export const IconOnlyButton = ({
+  onPress,
+  icon,
+  width,
+  backgroundColor,
+}: any) => {
+  return (
+    <View style={[styles.iconButton, {backgroundColor: backgroundColor}]}>
+      <TouchableOpacity
+        style={[styles.iconContainer, {width: width}]}
+        onPress={onPress}>
+        <Image style={styles.iconImage} source={icon} />
+      </TouchableOpacity>
+    </View>
+  );
+};
+
 const styles = StyleSheet.create({
   button: {
     backgroundColor: '#6679c0',
@@ -72,6 +89,13 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginRight: 10,
   },
+  iconImage: {
+    height: 30,
+    width: 30,
+    resizeMode: 'stretch',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
   iconButton: {
     flexDirection: 'row',
     justifyContent: 'center',
@@ -82,6 +106,11 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     width: 320,
     height: 50,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  iconContainer: {
+    height: 55,
     alignItems: 'center',
     justifyContent: 'center',
   },
