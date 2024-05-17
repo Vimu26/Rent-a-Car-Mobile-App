@@ -1,12 +1,15 @@
+/* eslint-disable react/no-unstable-nested-components */
 import * as React from 'react';
-import {NavigationContainer} from '@react-navigation/native';
+import {NavigationContainer, useNavigation} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import OpeningPage from './src/features/LoadingPage/OpeningPage';
-import SignUp from './src/features/SignUp/Signup';
-import {Image, StyleSheet, View} from 'react-native';
+import {Image, StyleSheet, Text, View} from 'react-native';
 import LandingPage from './src/features/LandingPage/LandingPage';
 import BottomTabNavigator from './src/components/BottomTab/BottomTab';
 import {appStyles} from './src/themes/Common-theme';
+import SignIn from './src/features/auth/SignIn';
+import SignUp from './src/features/auth/SignUp';
+import {TouchableOpacity} from 'react-native';
 
 function App(): React.JSX.Element {
   const Stack = createNativeStackNavigator();
@@ -23,6 +26,31 @@ function App(): React.JSX.Element {
       </View>
     );
   };
+
+  const SignUpHeader = () => {
+    const navigation = useNavigation();
+    const goBack = () => {
+      navigation.goBack();
+    };
+    return (
+      <View style={styles.headerUp}>
+        <View style={styles.backImageContainer}>
+          <TouchableOpacity onPress={goBack}>
+            <Image
+              source={require('./src/assets/common/icons8-back-48.png')}
+              style={styles.backImage}
+            />
+          </TouchableOpacity>
+        </View>
+        <View style={styles.upText}>
+          <TouchableOpacity onPress={goBack}>
+            <Text style={styles.upText2}>Sign In</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+    );
+  };
+
   return (
     <NavigationContainer>
       <Stack.Navigator
@@ -46,14 +74,22 @@ function App(): React.JSX.Element {
           options={{headerShown: false}}
         />
         <Stack.Screen
-          name="SignUp"
-          component={SignUp}
+          name="SignIn"
+          component={SignIn}
           options={{
             title: 'Welcome',
             headerStyle: {
               backgroundColor: '#6679c0',
             },
             header: () => headerImage(),
+            headerBackVisible: false,
+          }}
+        />
+        <Stack.Screen
+          name="SignUp"
+          component={SignUp}
+          options={{
+            header: () => SignUpHeader(),
             headerBackVisible: false,
           }}
         />
@@ -92,6 +128,30 @@ const styles = StyleSheet.create({
   },
   outer: {
     backgroundColor: '#1f2736',
+  },
+  headerUp: {
+    backgroundColor: appStyles.background.color,
+    paddingTop: 15,
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingHorizontal: 20,
+    height: 80,
+  },
+  backImage: {
+    //backgroundColor: appStyles.background.color,
+  },
+  backImageContainer: {
+    flex: 1,
+    alignItems: 'flex-start',
+  },
+  upText: {
+    flex: 1,
+    alignItems: 'flex-end',
+  },
+  upText2: {
+    color: appStyles.Text.color,
+    fontSize: 20,
+    fontWeight: 'bold',
   },
 });
 
