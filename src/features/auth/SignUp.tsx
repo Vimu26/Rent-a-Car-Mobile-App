@@ -6,91 +6,158 @@ import {
   BothSideIconInputBox,
 } from '../../components/Input Boxes/inputBoxes';
 import {PrimaryFullButton} from '../../components/Buttons/Buttons';
+import {Controller, useForm} from 'react-hook-form';
+import {IUser} from '../../interfaces/user';
+import {ScrollView} from 'react-native';
 
 const SignUp = ({navigation}: any) => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
   const [isVisible, setIsVisible] = useState(false);
-  //   const navigation = useNavigation();
 
-  const handleEmailChange = (text: string) => {
-    setEmail(text);
+  const {
+    control,
+    handleSubmit,
+    formState: {errors},
+  } = useForm({
+    defaultValues: {
+      name: '',
+      email: '',
+      contact: '',
+      password: '',
+    },
+  });
+
+  const onSubmit = (data: IUser) => {
+    console.log(data);
   };
 
-  const handlePasswordChange = (text: string) => {
-    setPassword(text);
-  };
   const handleSignUp = () => {
     navigation.goBack();
   };
 
   return (
     <View style={styles.container}>
-      <View style={styles.innerContainer}>
-        <View style={styles.viewHeader}>
-          <Image
-            source={require('../../assets/logo-no-background.png')}
-            style={styles.imageView}
-          />
-        </View>
-        <Text style={styles.headerText}>Create Your Account</Text>
-        <View style={styles.emailBox}>
-          <LeftIconInputBox
-            value={email}
-            KeyBoardType="email"
-            onChangeTextBox={handleEmailChange}
-            placeholder="Name"
-            imageUrl={require('../../assets/person.png')}
-            InputType="email"
-          />
-        </View>
-        <View style={styles.emailBox}>
-          <LeftIconInputBox
-            value={email}
-            KeyBoardType="email"
-            onChangeTextBox={handleEmailChange}
-            placeholder="Email Address"
-            imageUrl={require('../../assets/email.png')}
-            InputType="email"
-          />
-        </View>
-        <View style={styles.emailBox}>
-          <LeftIconInputBox
-            value={email}
-            KeyBoardType="numeric"
-            onChangeTextBox={handleEmailChange}
-            placeholder="Contact Number"
-            imageUrl={require('../../assets/phone.png')}
-            InputType="numeric"
-          />
-        </View>
-        <View style={styles.passwordBox}>
-          <BothSideIconInputBox
-            value={password}
-            KeyBoardType="default"
-            onChangeTextBox={handlePasswordChange}
-            placeholder="Password"
-            onRightImagePress={setIsVisible}
-            leftImageUrl={require('../../assets/icons8-lock-48.png')}
-            rightImageUrl={
-              isVisible
-                ? require('../../assets/icons8-visible-60.png')
-                : require('../../assets/icons8-not-visible-60.png')
-            }
-          />
-        </View>
-        <View style={styles.signUpButton}>
-          <PrimaryFullButton onPress={handleEmailChange} title="Sign Up" />
-        </View>
-        <View style={styles.textWrapperBottom}>
-          <Text>
-            <Text style={styles.normalText}>Already have an account? </Text>{' '}
-            <Text style={styles.linkText} onPress={handleSignUp}>
-              Sign In
+      <ScrollView>
+        <View style={styles.innerContainer}>
+          <View style={styles.viewHeader}>
+            <Image
+              source={require('../../assets/logo-no-background.png')}
+              style={styles.imageView}
+            />
+          </View>
+          <Text style={styles.headerText}>Create Your Account</Text>
+          <View style={styles.emailBox}>
+            <Controller
+              control={control}
+              rules={{
+                required: true,
+              }}
+              render={({field: {onChange, onBlur, value}}) => (
+                <LeftIconInputBox
+                  value={value}
+                  KeyBoardType="default"
+                  placeholder="Name"
+                  imageUrl={require('../../assets/person.png')}
+                  InputType="default"
+                  onBlur={onBlur}
+                  onChangeTextBox={onChange}
+                />
+              )}
+              name="name"
+            />
+            {errors.name && (
+              <Text style={styles.errorText}>Name is required.</Text>
+            )}
+          </View>
+          <View style={styles.emailBox}>
+            <Controller
+              control={control}
+              rules={{
+                required: true,
+              }}
+              render={({field: {onChange, onBlur, value}}) => (
+                <LeftIconInputBox
+                  value={value}
+                  KeyBoardType="email"
+                  onChangeTextBox={onChange}
+                  placeholder="Email Address"
+                  imageUrl={require('../../assets/email.png')}
+                  InputType="email"
+                  onBlur={onBlur}
+                />
+              )}
+              name="email"
+            />
+            {errors.email && (
+              <Text style={styles.errorText}>Email is required.</Text>
+            )}
+          </View>
+          <View style={styles.emailBox}>
+            <Controller
+              control={control}
+              rules={{
+                required: true,
+              }}
+              render={({field: {onChange, onBlur, value}}) => (
+                <LeftIconInputBox
+                  value={value}
+                  KeyBoardType="numeric"
+                  placeholder="Contact Number"
+                  imageUrl={require('../../assets/phone.png')}
+                  InputType="numeric"
+                  onBlur={onBlur}
+                  onChangeTextBox={onChange}
+                />
+              )}
+              name="contact"
+            />
+            {errors.contact && (
+              <Text style={styles.errorText}>Contact Number is required.</Text>
+            )}
+          </View>
+          <View style={styles.passwordBox}>
+            <Controller
+              control={control}
+              rules={{
+                required: true,
+              }}
+              render={({field: {onChange, onBlur, value}}) => (
+                <BothSideIconInputBox
+                  value={value}
+                  KeyBoardType="default"
+                  onChangeTextBox={onChange}
+                  placeholder="Password"
+                  onRightImagePress={setIsVisible}
+                  onBlur={onBlur}
+                  leftImageUrl={require('../../assets/icons8-lock-48.png')}
+                  rightImageUrl={
+                    isVisible
+                      ? require('../../assets/icons8-visible-60.png')
+                      : require('../../assets/icons8-not-visible-60.png')
+                  }
+                />
+              )}
+              name="password"
+            />
+            {errors.password && (
+              <Text style={styles.errorText}>Password is required.</Text>
+            )}
+          </View>
+          <View style={styles.signUpButton}>
+            <PrimaryFullButton
+              onPress={handleSubmit(onSubmit)}
+              title="Sign Up"
+            />
+          </View>
+          <View style={styles.textWrapperBottom}>
+            <Text>
+              <Text style={styles.normalText}>Already have an account? </Text>{' '}
+              <Text style={styles.linkText} onPress={handleSignUp}>
+                Sign In
+              </Text>
             </Text>
-          </Text>
+          </View>
         </View>
-      </View>
+      </ScrollView>
     </View>
   );
 };
@@ -103,6 +170,7 @@ const styles = StyleSheet.create({
     backgroundColor: appStyles.background.color,
   },
   innerContainer: {
+    paddingTop: 8,
     bottom: 10,
     flex: 1,
     justifyContent: 'center',
@@ -147,5 +215,11 @@ const styles = StyleSheet.create({
     height: 70,
     objectFit: 'fill',
     marginRight: 10,
+  },
+  errorText: {
+    fontSize: 13,
+    marginTop: 2,
+    color: 'red',
+    marginLeft: 5,
   },
 });
