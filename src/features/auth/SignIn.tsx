@@ -24,14 +24,13 @@ const SignIn = ({navigation}: any) => {
   };
 
   const handleSignUp = () => {
-    console.log('fvjfd');
     navigation.navigate('SignUp');
   };
 
   return (
     <View style={styles.container}>
-      <Text style={styles.header}>Create an Account</Text>
-      <Text style={styles.subHeader}>Welcome Back!</Text>
+      {/* <Text style={styles.header}>Create an Account</Text> */}
+      <Text style={styles.header}>Welcome Back!</Text>
       <View style={styles.emailBox}>
         <LeftIconInputBox
           value={email}
@@ -132,6 +131,7 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 28,
     fontWeight: 'bold',
+    marginBottom: 20,
   },
   subHeader: {
     color: '#acb4c4',
