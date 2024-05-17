@@ -12,7 +12,7 @@ const LandingPage = ({navigation}: any) => {
   };
 
   const getStarted = () => {
-    navigation.navigate('SignUp');
+    navigation.navigate('SignIn');
   };
 
   return (

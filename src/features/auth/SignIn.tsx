@@ -6,7 +6,7 @@ import {
 } from '../../components/Input Boxes/inputBoxes';
 import {ImageButton, PrimaryFullButton} from '../../components/Buttons/Buttons';
 
-const SignUp = ({navigation}: any) => {
+const SignIn = ({navigation}: any) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isVisible, setIsVisible] = useState(false);
@@ -19,14 +19,18 @@ const SignUp = ({navigation}: any) => {
     setPassword(text);
   };
 
-  const handleSignUp = () => {
+  const handleSignIn = () => {
     navigation.navigate('Home');
+  };
+
+  const handleSignUp = () => {
+    navigation.navigate('SignUp');
   };
 
   return (
     <View style={styles.container}>
-      <Text style={styles.header}>Create an Account</Text>
-      <Text style={styles.subHeader}>Welcome Back!</Text>
+      {/* <Text style={styles.header}>Create an Account</Text> */}
+      <Text style={styles.header}>Welcome Back!</Text>
       <View style={styles.emailBox}>
         <LeftIconInputBox
           value={email}
@@ -69,7 +73,7 @@ const SignUp = ({navigation}: any) => {
         </Text>
       </View>
       <View style={styles.signUpButton}>
-        <PrimaryFullButton onPress={handleSignUp} title="Sign Up" />
+        <PrimaryFullButton onPress={handleSignIn} title="Sign In" />
       </View>
       <View style={styles.dividerContainer}>
         <View style={styles.divider} />
@@ -81,24 +85,22 @@ const SignUp = ({navigation}: any) => {
       <View style={styles.button}>
         <ImageButton
           imageUrl={require('../../assets/icons8-facebook-96.png')}
-          onPress={handleSignUp}
+          onPress={handleSignIn}
           title="Continue With Facebook"
         />
       </View>
       <View style={styles.button}>
         <ImageButton
           imageUrl={require('../../assets/icons8-google-96.png')}
-          onPress={handleSignUp}
+          onPress={handleSignIn}
           title="Continue With Gmail"
         />
       </View>
       <View style={styles.textWrapperBottom}>
         <Text>
-          <Text style={styles.normalText}>Do you have an account? </Text>{' '}
-          <Text
-            style={styles.linkText}
-            onPress={() => Linking.openURL('http://google.com')}>
-            Sign in
+          <Text style={styles.normalText}>Create an account? </Text>{' '}
+          <Text style={styles.linkText} onPress={handleSignUp}>
+            Sign Up
           </Text>
         </Text>
       </View>
@@ -129,6 +131,7 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 28,
     fontWeight: 'bold',
+    marginBottom: 20,
   },
   subHeader: {
     color: '#acb4c4',
@@ -178,4 +181,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default SignUp;
+export default SignIn;
