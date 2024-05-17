@@ -9,6 +9,7 @@ import {PrimaryFullButton} from '../../components/Buttons/Buttons';
 import {Controller, useForm} from 'react-hook-form';
 import {IUser} from '../../interfaces/user';
 import {ScrollView} from 'react-native';
+import axios from 'axios';
 
 const SignUp = ({navigation}: any) => {
   const [isVisible, setIsVisible] = useState(false);
@@ -16,6 +17,7 @@ const SignUp = ({navigation}: any) => {
   const {
     control,
     handleSubmit,
+    reset,
     formState: {errors},
   } = useForm({
     defaultValues: {
@@ -26,8 +28,26 @@ const SignUp = ({navigation}: any) => {
     },
   });
 
-  const onSubmit = (data: IUser) => {
-    console.log(data);
+  const onSubmit = async (data: IUser) => {
+    try {
+      const response = await axios.post(
+        'http://localhost:3200/api/users/oauth/register',
+        data,
+        {
+          headers: {
+            'content-Type': 'application/json',
+          },
+        },
+      );
+      if (response.data) {
+        setTimeout(() => {
+          reset();
+          navigation.goBack();
+        }, 1000);
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const handleSignUp = () => {
