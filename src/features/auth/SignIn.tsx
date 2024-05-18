@@ -17,6 +17,7 @@ const SignIn = ({navigation}: any) => {
     handleSubmit,
     reset,
     formState: {errors, isValid},
+    clearErrors,
   } = useForm({
     defaultValues: {
       email: '',
@@ -40,8 +41,9 @@ const SignIn = ({navigation}: any) => {
       if (response.data) {
         setTimeout(() => {
           reset();
+          clearErrors();
           navigation.navigate('Home');
-        }, 1000);
+        }, 500);
       }
     } catch (error) {
       console.log(error);

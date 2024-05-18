@@ -19,6 +19,7 @@ const SignUp = ({navigation}: any) => {
     handleSubmit,
     reset,
     formState: {errors, isValid},
+    clearErrors,
   } = useForm({
     defaultValues: {
       name: '',
@@ -44,6 +45,7 @@ const SignUp = ({navigation}: any) => {
       if (response.data) {
         setTimeout(() => {
           reset();
+          clearErrors();
           navigation.goBack();
         }, 1000);
       }
