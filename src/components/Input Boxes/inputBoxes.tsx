@@ -16,6 +16,7 @@ export const LeftIconInputBox = ({
   placeholder,
   InputType,
   imageUrl,
+  onBlur,
 }: any) => {
   return (
     <SafeAreaView>
@@ -28,6 +29,7 @@ export const LeftIconInputBox = ({
           placeholder={placeholder}
           onChangeText={onChangeTextBox}
           cursorColor="white"
+          onBlur={onBlur}
           inputMode={InputType}
           placeholderTextColor={appStyles.Text.color}
           underlineColorAndroid="transparent"
@@ -46,6 +48,7 @@ export const BothSideIconInputBox = ({
   leftImageUrl,
   rightImageUrl,
   onRightImagePress,
+  onBlur,
 }: any) => {
   const [isVisible, setIsVisible] = useState(false);
   const handleRightImagePress = () => {
@@ -70,6 +73,7 @@ export const BothSideIconInputBox = ({
             secureTextEntry={!isVisible}
             placeholderTextColor={appStyles.Text.color}
             underlineColorAndroid="transparent"
+            onBlur={onBlur}
           />
         </View>
         <View style={styles.backImage}>
