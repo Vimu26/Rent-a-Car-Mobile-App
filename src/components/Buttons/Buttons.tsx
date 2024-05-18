@@ -1,11 +1,17 @@
 import React from 'react';
 import {TouchableOpacity, Text, StyleSheet, View, Image} from 'react-native';
+import {appStyles} from '../../themes/Common-theme';
 
 //This Button With Background Color
-export const PrimaryFullButton = ({onPress, title}: any) => {
+export const PrimaryFullButton = ({onPress, title, disabled}: any) => {
   return (
-    <TouchableOpacity style={styles.button} onPress={onPress}>
-      <Text style={styles.text}>{title}</Text>
+    <TouchableOpacity
+      style={[styles.button, disabled && styles.buttonDisabled]}
+      onPress={!disabled ? onPress : null}
+      disabled={disabled}>
+      <Text style={[styles.text, disabled && styles.textDisabled]}>
+        {title}
+      </Text>
     </TouchableOpacity>
   );
 };
@@ -62,6 +68,9 @@ const styles = StyleSheet.create({
     display: 'flex',
     marginBottom: 8,
   },
+  buttonDisabled: {
+    backgroundColor: appStyles.Text.color,
+  },
   text: {
     alignItems: 'center',
     color: 'white',
@@ -69,6 +78,9 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 18,
     padding: 3,
+  },
+  textDisabled: {
+    color: '#666666',
   },
   container: {
     width: 320,

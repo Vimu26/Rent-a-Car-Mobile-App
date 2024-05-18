@@ -18,7 +18,7 @@ const SignUp = ({navigation}: any) => {
     control,
     handleSubmit,
     reset,
-    formState: {errors},
+    formState: {errors, isValid},
   } = useForm({
     defaultValues: {
       name: '',
@@ -26,6 +26,8 @@ const SignUp = ({navigation}: any) => {
       contact: '',
       password: '',
     },
+    mode: 'onBlur',
+    reValidateMode: 'onChange',
   });
 
   const onSubmit = async (data: IUser) => {
@@ -69,7 +71,7 @@ const SignUp = ({navigation}: any) => {
             <Controller
               control={control}
               rules={{
-                required: true,
+                required: 'Name is required',
               }}
               render={({field: {onChange, onBlur, value}}) => (
                 <LeftIconInputBox
@@ -85,14 +87,18 @@ const SignUp = ({navigation}: any) => {
               name="name"
             />
             {errors.name && (
-              <Text style={styles.errorText}>Name is required.</Text>
+              <Text style={styles.errorText}>{errors.name.message}</Text>
             )}
           </View>
           <View style={styles.emailBox}>
             <Controller
               control={control}
               rules={{
-                required: true,
+                required: 'Email is required',
+                pattern: {
+                  value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                  message: 'Enter a valid email address',
+                },
               }}
               render={({field: {onChange, onBlur, value}}) => (
                 <LeftIconInputBox
@@ -108,14 +114,26 @@ const SignUp = ({navigation}: any) => {
               name="email"
             />
             {errors.email && (
-              <Text style={styles.errorText}>Email is required.</Text>
+              <Text style={styles.errorText}>{errors.email.message}</Text>
             )}
           </View>
           <View style={styles.emailBox}>
             <Controller
               control={control}
               rules={{
-                required: true,
+                required: 'Contact Number is required',
+                minLength: {
+                  value: 10,
+                  message: 'Contact Number must be exactly 10 digits',
+                },
+                maxLength: {
+                  value: 10,
+                  message: 'Contact Number must be exactly 10 digits',
+                },
+                pattern: {
+                  value: /^\d{10}$/,
+                  message: 'Enter a valid contact number',
+                },
               }}
               render={({field: {onChange, onBlur, value}}) => (
                 <LeftIconInputBox
@@ -131,14 +149,18 @@ const SignUp = ({navigation}: any) => {
               name="contact"
             />
             {errors.contact && (
-              <Text style={styles.errorText}>Contact Number is required.</Text>
+              <Text style={styles.errorText}>{errors.contact.message}</Text>
             )}
           </View>
           <View style={styles.passwordBox}>
             <Controller
               control={control}
               rules={{
-                required: true,
+                required: 'Password is required',
+                minLength: {
+                  value: 6,
+                  message: 'Password must be at least 6 characters long',
+                },
               }}
               render={({field: {onChange, onBlur, value}}) => (
                 <BothSideIconInputBox
@@ -159,13 +181,14 @@ const SignUp = ({navigation}: any) => {
               name="password"
             />
             {errors.password && (
-              <Text style={styles.errorText}>Password is required.</Text>
+              <Text style={styles.errorText}>{errors.password.message}</Text>
             )}
           </View>
           <View style={styles.signUpButton}>
             <PrimaryFullButton
               onPress={handleSubmit(onSubmit)}
               title="Sign Up"
+              disabled={!isValid}
             />
           </View>
           <View style={styles.textWrapperBottom}>
