@@ -5,18 +5,47 @@ import {
   LeftIconInputBox,
 } from '../../components/Input Boxes/inputBoxes';
 import {ImageButton, PrimaryFullButton} from '../../components/Buttons/Buttons';
+import {ILogin} from '../../interfaces/user';
+import axios from 'axios';
+import {Controller, useForm} from 'react-hook-form';
 
 const SignIn = ({navigation}: any) => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
   const [isVisible, setIsVisible] = useState(false);
 
-  const handleEmailChange = (text: string) => {
-    setEmail(text);
-  };
+  const {
+    control,
+    handleSubmit,
+    reset,
+    formState: {errors, isValid},
+  } = useForm({
+    defaultValues: {
+      email: '',
+      password: '',
+    },
+    mode: 'onBlur',
+    reValidateMode: 'onChange',
+  });
 
-  const handlePasswordChange = (text: string) => {
-    setPassword(text);
+  const onLogin = async (data: ILogin) => {
+    try {
+      const response = await axios.post(
+        'http://localhost:3200/api/users/oauth/login',
+        data,
+        {
+          headers: {
+            'content-Type': 'application/json',
+          },
+        },
+      );
+      if (response.data) {
+        setTimeout(() => {
+          reset();
+          navigation.navigate('Home');
+        }, 1000);
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const handleSignIn = () => {
@@ -32,29 +61,60 @@ const SignIn = ({navigation}: any) => {
       {/* <Text style={styles.header}>Create an Account</Text> */}
       <Text style={styles.header}>Welcome Back!</Text>
       <View style={styles.emailBox}>
-        <LeftIconInputBox
-          value={email}
-          KeyBoardType="email"
-          onChangeTextBox={handleEmailChange}
-          placeholder="Email Address"
-          imageUrl={require('../../assets/email.png')}
-          InputType="email"
+        <Controller
+          control={control}
+          rules={{
+            required: 'Email is required',
+            pattern: {
+              value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+              message: 'Enter a valid email address',
+            },
+          }}
+          render={({field: {onChange, onBlur, value}}) => (
+            <LeftIconInputBox
+              value={value}
+              KeyBoardType="email"
+              onChangeTextBox={onChange}
+              placeholder="Email Address"
+              imageUrl={require('../../assets/email.png')}
+              InputType="email"
+              onBlur={onBlur}
+            />
+          )}
+          name="email"
         />
+        {errors.email && (
+          <Text style={styles.errorText}>{errors.email.message}</Text>
+        )}
       </View>
+
       <View style={styles.passwordBox}>
-        <BothSideIconInputBox
-          value={password}
-          KeyBoardType="default"
-          onChangeTextBox={handlePasswordChange}
-          placeholder="Password"
-          onRightImagePress={setIsVisible}
-          leftImageUrl={require('../../assets/icons8-lock-48.png')}
-          rightImageUrl={
-            isVisible
-              ? require('../../assets/icons8-visible-60.png')
-              : require('../../assets/icons8-not-visible-60.png')
-          }
+        <Controller
+          control={control}
+          rules={{
+            required: 'Password is required',
+          }}
+          render={({field: {onChange, onBlur, value}}) => (
+            <BothSideIconInputBox
+              value={value}
+              KeyBoardType="default"
+              onChangeTextBox={onChange}
+              placeholder="Password"
+              onRightImagePress={setIsVisible}
+              onBlur={onBlur}
+              leftImageUrl={require('../../assets/icons8-lock-48.png')}
+              rightImageUrl={
+                isVisible
+                  ? require('../../assets/icons8-visible-60.png')
+                  : require('../../assets/icons8-not-visible-60.png')
+              }
+            />
+          )}
+          name="password"
         />
+        {errors.password && (
+          <Text style={styles.errorText}>{errors.password.message}</Text>
+        )}
       </View>
       <View style={styles.textWrapper}>
         <Text style={styles.normalText}>
@@ -73,7 +133,11 @@ const SignIn = ({navigation}: any) => {
         </Text>
       </View>
       <View style={styles.signUpButton}>
-        <PrimaryFullButton onPress={handleSignIn} title="Sign In" />
+        <PrimaryFullButton
+          onPress={handleSubmit(onLogin)}
+          title="Sign In"
+          disabled={!isValid}
+        />
       </View>
       <View style={styles.dividerContainer}>
         <View style={styles.divider} />
@@ -178,6 +242,12 @@ const styles = StyleSheet.create({
     marginRight: 15,
     marginTop: 10,
     marginBottom: 10,
+  },
+  errorText: {
+    fontSize: 13,
+    marginTop: 2,
+    color: 'red',
+    marginLeft: 5,
   },
 });
 
