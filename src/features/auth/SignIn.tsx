@@ -51,7 +51,6 @@ const SignIn = ({navigation}: any) => {
         },
       );
       if (response.data) {
-        console.log(response.data);
         disPatch(
           setLogin({
             user: response.data.user,
