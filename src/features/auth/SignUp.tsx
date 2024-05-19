@@ -10,6 +10,7 @@ import {Controller, useForm} from 'react-hook-form';
 import {IUser} from '../../interfaces/user';
 import {ScrollView} from 'react-native';
 import axios from 'axios';
+import {useFocusEffect} from '@react-navigation/native';
 
 const SignUp = ({navigation}: any) => {
   const [isVisible, setIsVisible] = useState(false);
@@ -19,6 +20,7 @@ const SignUp = ({navigation}: any) => {
     handleSubmit,
     reset,
     formState: {errors, isValid},
+    clearErrors,
   } = useForm({
     defaultValues: {
       name: '',
@@ -29,6 +31,14 @@ const SignUp = ({navigation}: any) => {
     mode: 'onBlur',
     reValidateMode: 'onChange',
   });
+
+  useFocusEffect(
+    React.useCallback(() => {
+      reset();
+      clearErrors();
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []),
+  );
 
   const onSubmit = async (data: IUser) => {
     try {
@@ -44,6 +54,7 @@ const SignUp = ({navigation}: any) => {
       if (response.data) {
         setTimeout(() => {
           reset();
+          clearErrors();
           navigation.goBack();
         }, 1000);
       }
