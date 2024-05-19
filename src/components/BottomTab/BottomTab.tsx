@@ -90,11 +90,11 @@ const BottomTabNavigator = () => {
 
   return (
     <Tab.Navigator
-      initialRouteName="Home"
+      initialRouteName="HomePage"
       screenOptions={{headerShown: false}}
       tabBar={props => tabBar({...props})}>
       <Tab.Screen name="Favorite" component={Favorite} />
-      <Tab.Screen name="Home" component={Home} />
+      <Tab.Screen name="HomePage" component={Home} />
       <Tab.Screen name="Profile" component={Profile} />
     </Tab.Navigator>
   );
