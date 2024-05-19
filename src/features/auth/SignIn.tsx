@@ -9,9 +9,12 @@ import {ILogin} from '../../interfaces/user';
 import axios from 'axios';
 import {Controller, useForm} from 'react-hook-form';
 import {useFocusEffect} from '@react-navigation/native';
+import {useDispatch} from 'react-redux';
+import {setLogin} from '../../state/auth/auth';
 
 const SignIn = ({navigation}: any) => {
   const [isVisible, setIsVisible] = useState(false);
+  const disPatch = useDispatch();
 
   const {
     control,
@@ -48,6 +51,13 @@ const SignIn = ({navigation}: any) => {
         },
       );
       if (response.data) {
+        console.log(response.data);
+        disPatch(
+          setLogin({
+            user: response.data.user,
+            token: response.data.token,
+          }),
+        );
         setTimeout(() => {
           reset();
           clearErrors();

@@ -47,12 +47,12 @@ const BottomTabNavigator = () => {
               });
             };
             const iconMapSelected: any = {
-              Home: require('../../assets/common/Home-selected.png'),
+              HomePage: require('../../assets/common/Home-selected.png'),
               Favorite: require('../../assets/common/Favorite-selected.png'),
               Profile: require('../../assets/common/Profile-selectd.png'),
             };
             const iconMapNotSelected: any = {
-              Home: require('../../assets/common/Home.png'),
+              HomePage: require('../../assets/common/Home.png'),
               Favorite: require('../../assets/common/Favorite.png'),
               Profile: require('../../assets/common/Profile.png'),
             };
