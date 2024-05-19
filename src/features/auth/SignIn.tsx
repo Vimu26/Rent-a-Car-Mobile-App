@@ -8,6 +8,7 @@ import {ImageButton, PrimaryFullButton} from '../../components/Buttons/Buttons';
 import {ILogin} from '../../interfaces/user';
 import axios from 'axios';
 import {Controller, useForm} from 'react-hook-form';
+import {useFocusEffect} from '@react-navigation/native';
 
 const SignIn = ({navigation}: any) => {
   const [isVisible, setIsVisible] = useState(false);
@@ -26,6 +27,14 @@ const SignIn = ({navigation}: any) => {
     mode: 'onBlur',
     reValidateMode: 'onChange',
   });
+
+  useFocusEffect(
+    React.useCallback(() => {
+      reset();
+      clearErrors();
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []),
+  );
 
   const onLogin = async (data: ILogin) => {
     try {
