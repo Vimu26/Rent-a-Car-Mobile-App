@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   Image,
   SafeAreaView,
@@ -11,9 +11,13 @@ import {
 import {appStyles} from '../../themes/Common-theme';
 import {SearchInputBox} from '../../components/Input Boxes/inputBoxes';
 import {IconOnlyButton} from '../../components/Buttons/Buttons';
+import {useSelector} from 'react-redux';
+import {IUser} from '../../interfaces/user';
 
 const Home = () => {
   const [searchInput, setSearchInput] = useState('');
+  const token: string = useSelector((state: any) => state.auth.token);
+  const user: IUser = useSelector((state: any) => state.auth.user);
 
   const brandsArrayList = [
     {
@@ -68,12 +72,18 @@ const Home = () => {
     //
   };
 
+  useEffect(() => {
+    console.log(token);
+    console.log(user);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <SafeAreaView style={styles.areaContainer}>
       <ScrollView>
         <View style={styles.container}>
           {/* TODO @akalanka need to put the name oF the user */}
-          <Text style={styles.name}>Hello Khaled</Text>
+          <Text style={styles.name}>{user.name}</Text>
           <Text style={styles.subTitle}>Lets find your favorite car here </Text>
 
           <View style={styles.container2}>
