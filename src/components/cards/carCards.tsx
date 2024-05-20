@@ -5,13 +5,13 @@ import {appStyles} from '../../themes/Common-theme';
 import {CAR_BRANDS, TRANSMISSION_TYPES} from '../../types/types';
 
 export interface cardDetails {
-  brand: CAR_BRANDS;
+  brand: CAR_BRANDS | string;
   rating: number;
   name: string;
   price: number;
   seat: number;
   speed: number;
-  transmission: TRANSMISSION_TYPES;
+  transmission: TRANSMISSION_TYPES | string;
 }
 
 const ViewAllCarCard = ({
@@ -121,6 +121,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     backgroundColor: appStyles.cardContainer.color,
     paddingHorizontal: 15,
+    marginVertical: 15,
   },
   cardContainerIn: {
     flex: 1,
