@@ -1,15 +1,15 @@
 export enum CAR_BRANDS {
-  ALL = 'ALL',
-  TOYOTA = 'TOYOTA',
-  NISSAN = 'NISSAN',
-  AUDI = 'AUDI',
-  PORSCHE = 'PORSCHE',
-  MAZDA = 'MAZDA',
-  MITSUBISHI = 'MITSUBISHI',
-  BMW = 'BMW',
-  BENZ = 'BENZ',
-  HONDA = 'HONDA',
-  FORD = 'FORD',
+  ALL = 'All',
+  TOYOTA = 'Toyota',
+  NISSAN = 'Nissan',
+  AUDI = 'Audi',
+  PORSCHE = 'Porsche',
+  MAZDA = 'Mazda',
+  MITSUBISHI = 'Mitsubishi',
+  BMW = 'Bmw',
+  BENZ = 'Benz',
+  HONDA = 'Honda',
+  FORD = 'Ford',
 }
 
 export enum TRANSMISSION_TYPES {
@@ -20,13 +20,13 @@ export enum TRANSMISSION_TYPES {
 }
 
 export enum FUEL_TYPE {
-  DIESEL = 'DIESEL',
-  PETROL = 'PETROL',
-  HYBRID = 'HYBRID',
-  ELECTRIC = 'ELECTRIC',
-  PLUGIN_HYBRID = 'PLUGIN HYBRID',
-  GASOLINE = 'GASOLINE',
-  OTHER = 'OTHER',
+  DIESEL = 'Diesel',
+  PETROL = 'PEtrol',
+  HYBRID = 'Hybrid',
+  ELECTRIC = 'Electric',
+  PLUGIN_HYBRID = 'Plugin Hybrid',
+  GASOLINE = 'Gasoline',
+  OTHER = 'Other',
 }
 
 export enum VEHICLE_TYPE {
