@@ -3,10 +3,10 @@ import {TouchableOpacity, Text, StyleSheet, View, Image} from 'react-native';
 import {appStyles} from '../../themes/Common-theme';
 
 //This Button With Background Color
-export const PrimaryFullButton = ({onPress, title, disabled}: any) => {
+export const PrimaryFullButton = ({onPress, title, disabled, width}: any) => {
   return (
     <TouchableOpacity
-      style={[styles.button, disabled && styles.buttonDisabled]}
+      style={[styles.button, disabled && styles.buttonDisabled, {width: width}]}
       onPress={!disabled ? onPress : null}
       disabled={disabled}>
       <Text style={[styles.text, disabled && styles.textDisabled]}>
@@ -16,12 +16,25 @@ export const PrimaryFullButton = ({onPress, title, disabled}: any) => {
   );
 };
 
-//This Button WithOut Background Color
-export const SecondaryFullButton = ({onPress, title}: any) => {
+//This Button WithOut Background Color without border
+export const SecondaryFullButton = ({onPress, title, width}: any) => {
   return (
-    <TouchableOpacity style={styles.container} onPress={onPress}>
+    <TouchableOpacity
+      style={[styles.container, {width: width}]}
+      onPress={onPress}>
       <Text style={styles.text2}>{title}</Text>
     </TouchableOpacity>
+  );
+};
+
+//This Button WithOut Background Color with border
+export const SecondaryBorderButton = ({onPress, title, width}: any) => {
+  return (
+    <View style={[styles.container, styles.borderContainer, {width: width}]}>
+      <TouchableOpacity onPress={onPress}>
+        <Text style={styles.text2}>{title}</Text>
+      </TouchableOpacity>
+    </View>
   );
 };
 
@@ -61,7 +74,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     width: 320,
     height: 50,
-    color: 'white',
+    color: appStyles.Text.color,
     textAlign: 'center',
     justifyContent: 'center',
     alignItems: 'center',
@@ -83,7 +96,6 @@ const styles = StyleSheet.create({
     color: '#666666',
   },
   container: {
-    width: 320,
     justifyContent: 'center',
     paddingHorizontal: 10,
   },
@@ -125,5 +137,12 @@ const styles = StyleSheet.create({
     height: 55,
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  borderContainer: {
+    borderWidth: 0.5,
+    borderColor: appStyles.Text.color,
+    borderRadius: 5,
+    height: 50,
+    padding: 10,
   },
 });
