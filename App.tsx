@@ -10,6 +10,7 @@ import {appStyles} from './src/themes/Common-theme';
 import SignIn from './src/features/auth/SignIn';
 import SignUp from './src/features/auth/SignUp';
 import {TouchableOpacity} from 'react-native';
+import ViewCars from './src/features/cars/ViewCars';
 
 function App(): React.JSX.Element {
   const Stack = createNativeStackNavigator();
@@ -27,7 +28,8 @@ function App(): React.JSX.Element {
     );
   };
 
-  const SignUpHeader = () => {
+  const headerWithBackButton = (name: string) => {
+    // eslint-disable-next-line react-hooks/rules-of-hooks
     const navigation = useNavigation();
     const goBack = () => {
       navigation.goBack();
@@ -44,7 +46,7 @@ function App(): React.JSX.Element {
         </View>
         <View style={styles.upText}>
           <TouchableOpacity onPress={goBack}>
-            <Text style={styles.upText2}>Sign In</Text>
+            <Text style={styles.upText2}>{name}</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -89,20 +91,31 @@ function App(): React.JSX.Element {
           name="SignUp"
           component={SignUp}
           options={{
-            header: () => SignUpHeader(),
+            header: () => headerWithBackButton('Sign In'),
             headerBackVisible: false,
           }}
         />
         <Stack.Screen
           name="Home"
           options={{
-            // headerShown: false,
+            headerShown: false,
             headerStyle: {
               backgroundColor: appStyles.background.color,
             },
           }}>
           {() => <BottomTabNavigator />}
         </Stack.Screen>
+        <Stack.Screen
+          name="ViewCars"
+          component={ViewCars}
+          options={
+            {
+              // header: () => headerWithBackButton('Home'),
+              // headerBackVisible: false,
+              // headerShown: false,
+            }
+          }
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
