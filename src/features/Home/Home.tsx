@@ -14,7 +14,7 @@ import {IconOnlyButton} from '../../components/Buttons/Buttons';
 import {useSelector} from 'react-redux';
 import {IUser} from '../../interfaces/user';
 
-const Home = () => {
+const Home = ({navigation}: any) => {
   const [searchInput, setSearchInput] = useState('');
   const token: string = useSelector((state: any) => state.auth.token);
   const user: IUser = useSelector((state: any) => state.auth.user);
@@ -69,7 +69,7 @@ const Home = () => {
     //
   };
   const handleViewAllClick = () => {
-    //
+    navigation.navigate('ViewCars');
   };
 
   useEffect(() => {
