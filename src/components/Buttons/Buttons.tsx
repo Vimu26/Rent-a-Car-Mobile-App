@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     display: 'flex',
-    marginBottom: 8,
+    // marginBottom: 0,
   },
   buttonDisabled: {
     backgroundColor: appStyles.Text.color,
