@@ -36,9 +36,9 @@ const ViewCars = () => {
 
   return (
     <View style={styles.upperContainer}>
-      <View style={styles.header}>
+      {/* <View style={styles.header}>
         <Text>View all cars</Text>
-      </View>
+      </View> */}
       <View style={styles.innerContainer}>
         <ScrollView>
           <View style={styles.container}>

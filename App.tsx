@@ -110,13 +110,17 @@ function App(): React.JSX.Element {
         <Stack.Screen
           name="ViewCars"
           component={ViewCars}
-          options={
-            {
-              // header: () => headerWithBackButton('Home'),
-              // headerBackVisible: false,
-              // headerShown: false,
-            }
-          }
+          options={{
+            header: ({navigation}) => (
+              <HeaderWithBackButton
+                heading={'View all Cars'}
+                navigation={navigation}
+              />
+            ),
+            // header: () => headerWithBackButton('Home'),
+            // headerBackVisible: false,
+            // headerShown: false,
+          }}
         />
         <Stack.Screen
           name="FilterCars"

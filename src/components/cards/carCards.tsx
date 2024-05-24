@@ -116,7 +116,7 @@ export default ViewAllCarCard;
 const styles = StyleSheet.create({
   cardContainer: {
     height: 280,
-    width: 320,
+    width: '100%',
     borderWidth: 0.5,
     borderRadius: 10,
     backgroundColor: appStyles.cardContainer.color,
