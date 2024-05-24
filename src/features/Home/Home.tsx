@@ -13,6 +13,7 @@ import {SearchInputBox} from '../../components/Input Boxes/inputBoxes';
 import {IconOnlyButton} from '../../components/Buttons/Buttons';
 import {useSelector} from 'react-redux';
 import {IUser} from '../../interfaces/user';
+import CarCard from '../../components/cards/CarRating.card';
 
 const Home = ({navigation}: any) => {
   const [searchInput, setSearchInput] = useState('');
@@ -82,7 +83,6 @@ const Home = ({navigation}: any) => {
     <SafeAreaView style={styles.areaContainer}>
       <ScrollView>
         <View style={styles.container}>
-          {/* TODO @akalanka need to put the name oF the user */}
           <Text style={styles.name}>{user.name}</Text>
           <Text style={styles.subTitle}>Lets find your favorite car here </Text>
 
@@ -161,67 +161,7 @@ const Home = ({navigation}: any) => {
         {/* Top rated car cards #TODO */}
         <View style={styles.carCardContainer}>
           <ScrollView horizontal={true}>
-            <View style={styles.carCard}>
-              <TouchableOpacity>
-                <View style={styles.carCardHeader}>
-                  <Image
-                    style={styles.carCardIcon}
-                    source={require('../../assets/brands/icons8-audi-a-german-automobile-manufacturer-of-luxury-vehicles-96.png')}
-                  />
-                  <Image
-                    style={styles.favIcon}
-                    source={require('../../assets/common/liked.png')}
-                  />
-                </View>
-                <View style={styles.cardImg}>
-                  <Image
-                    style={styles.carImg}
-                    source={require('../../assets/cars/Lovepik_com-401434180-a-car.png')}
-                  />
-                </View>
-                <View style={styles.cardBottomTextContainer}>
-                  <Text style={styles.cardBottomText}>Audi A7 Sportsback</Text>
-                  <View style={styles.cardRatings}>
-                    <Text style={styles.cardBottomText}>4.8</Text>
-                    <Image
-                      style={styles.star}
-                      source={require('../../assets/common/star.png')}
-                    />
-                  </View>
-                </View>
-              </TouchableOpacity>
-            </View>
-
-            <View style={styles.carCard}>
-              <TouchableOpacity>
-                <View style={styles.carCardHeader}>
-                  <Image
-                    style={styles.carCardIcon}
-                    source={require('../../assets/brands/icons8-audi-a-german-automobile-manufacturer-of-luxury-vehicles-96.png')}
-                  />
-                  <Image
-                    style={styles.favIcon}
-                    source={require('../../assets/common/Favorite.png')}
-                  />
-                </View>
-                <View style={styles.cardImg}>
-                  <Image
-                    style={styles.carImg}
-                    source={require('../../assets/cars/Lovepik_com-401434180-a-car.png')}
-                  />
-                </View>
-                <View style={styles.cardBottomTextContainer}>
-                  <Text style={styles.cardBottomText}>Audi A7 Sportsback</Text>
-                  <View style={styles.cardRatings}>
-                    <Text style={styles.cardBottomText}>4.8</Text>
-                    <Image
-                      style={styles.star}
-                      source={require('../../assets/common/star.png')}
-                    />
-                  </View>
-                </View>
-              </TouchableOpacity>
-            </View>
+            <CarCard />
           </ScrollView>
         </View>
       </ScrollView>
