@@ -11,6 +11,8 @@ import SignIn from './src/features/auth/SignIn';
 import SignUp from './src/features/auth/SignUp';
 import {TouchableOpacity} from 'react-native';
 import ViewCars from './src/features/cars/ViewCars';
+import Filters from './src/features/filters/Filters';
+import HeaderWithBackButton from './src/components/HeaderWithBackButton/HeaderWithBackButton';
 
 function App(): React.JSX.Element {
   const Stack = createNativeStackNavigator();
@@ -115,6 +117,20 @@ function App(): React.JSX.Element {
               // headerShown: false,
             }
           }
+        />
+        <Stack.Screen
+          name="FilterCars"
+          component={Filters}
+          options={{
+            header: ({navigation}) => (
+              <HeaderWithBackButton
+                heading={'Filters'}
+                navigation={navigation}
+              />
+            ),
+            // headerBackVisible: false,
+            // headerShown: true,
+          }}
         />
       </Stack.Navigator>
     </NavigationContainer>
