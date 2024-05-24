@@ -6,6 +6,8 @@ import {
   TextInput,
   SafeAreaView,
   TouchableOpacity,
+  KeyboardTypeOptions,
+  Text,
 } from 'react-native';
 import {appStyles} from '../../themes/Common-theme';
 
@@ -127,6 +129,49 @@ export const SearchInputBox = ({
   );
 };
 
+export interface ICustomTextBox {
+  onChange: any;
+  value: string;
+  width: number;
+  height: number;
+  keyBoardType?: KeyboardTypeOptions | undefined;
+  placeHolder: string;
+  label: string;
+  onBlur: any;
+}
+
+export const CustomInputBox = ({
+  onChange,
+  value,
+  keyBoardType = 'default',
+  placeHolder,
+  label,
+  width,
+  height,
+  onBlur,
+}: ICustomTextBox) => {
+  return (
+    <SafeAreaView>
+      <Text style={styles.customInputLabe}>{label}</Text>
+      <TextInput
+        placeholderTextColor={appStyles.Text.color}
+        style={[
+          styles.customInput,
+          {
+            width: width,
+            height: height,
+          },
+        ]}
+        onChangeText={onChange}
+        placeholder={placeHolder}
+        value={value}
+        keyboardType={keyBoardType}
+        onBlur={onBlur}
+      />
+    </SafeAreaView>
+  );
+};
+
 const styles = StyleSheet.create({
   inputSectionStyle: {
     flexDirection: 'row',
@@ -193,5 +238,22 @@ const styles = StyleSheet.create({
   },
   backImage: {
     position: 'relative',
+  },
+  customInput: {
+    borderColor: appStyles.Text.color,
+    color: appStyles.Text.color,
+    borderWidth: 0.5,
+    borderRadius: 5,
+    padding: 10,
+    backgroundColor: appStyles.cardContainer.color,
+    alignItems: 'center',
+    justifyContent: 'center',
+    fontSize: 25,
+  },
+  customInputLabe: {
+    color: appStyles.Text.color,
+    marginBottom: 3,
+    fontSize: 16,
+    fontWeight: '600',
   },
 });

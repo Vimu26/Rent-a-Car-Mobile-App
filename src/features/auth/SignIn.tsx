@@ -157,6 +157,7 @@ const SignIn = ({navigation}: any) => {
           onPress={handleSubmit(onLogin)}
           title="Sign In"
           disabled={!isValid}
+          width={320}
         />
       </View>
       <View style={styles.dividerContainer}>

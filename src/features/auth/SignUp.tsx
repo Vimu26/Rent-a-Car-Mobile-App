@@ -200,6 +200,7 @@ const SignUp = ({navigation}: any) => {
               onPress={handleSubmit(onSubmit)}
               title="Sign Up"
               disabled={!isValid}
+              width={320}
             />
           </View>
           <View style={styles.textWrapperBottom}>

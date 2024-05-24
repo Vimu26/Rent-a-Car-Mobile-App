@@ -66,7 +66,7 @@ const Home = ({navigation}: any) => {
     setSearchInput(text);
   };
   const onClickFilter = () => {
-    //
+    navigation.navigate('FilterCars');
   };
   const handleViewAllClick = () => {
     navigation.navigate('ViewCars');

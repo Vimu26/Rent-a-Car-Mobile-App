@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, StyleSheet, Image, Alert} from 'react-native';
+import {View, Text, StyleSheet, Image} from 'react-native';
 import {appStyles} from '../../themes/Common-theme';
 import {
   PrimaryFullButton,
@@ -8,7 +8,8 @@ import {
 
 const LandingPage = ({navigation}: any) => {
   const continueAsGuest = () => {
-    Alert.alert('Secondary Button pressed');
+    // Alert.alert('Secondary Button pressed');
+    navigation.navigate('Home');
   };
 
   const getStarted = () => {
@@ -24,10 +25,15 @@ const LandingPage = ({navigation}: any) => {
         instantly {'\n'}with your phone.
       </Text>
       <View style={styles.buttonContainer}>
-        <PrimaryFullButton onPress={getStarted} title={'Get Started'} />
+        <PrimaryFullButton
+          onPress={getStarted}
+          title={'Get Started'}
+          width={320}
+        />
         <SecondaryFullButton
           onPress={continueAsGuest}
           title={'Continue as a guest'}
+          width={320}
         />
       </View>
     </View>
