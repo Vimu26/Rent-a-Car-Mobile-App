@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, View, ScrollView} from 'react-native';
 import {CustomInputBox} from '../../components/Input Boxes/inputBoxes';
 import {appStyles} from '../../themes/Common-theme';
 import {Controller, useForm} from 'react-hook-form';
@@ -37,6 +37,14 @@ const TransmissionData: IDropDownData[] = [
   {label: 'Manual', value: '4'},
 ];
 
+const FuelData: IDropDownData[] = [
+  {label: 'ALL', value: '1'},
+  {label: 'Diesel', value: '2'},
+  {label: 'Electric', value: '3'},
+  {label: 'Gasoline', value: '4'},
+  {label: 'Petrol', value: '5'},
+];
+
 const Filters = () => {
   const {control, handleSubmit, reset} = useForm({
     mode: 'onBlur',
@@ -48,8 +56,8 @@ const Filters = () => {
   };
 
   return (
-    <>
-      <View style={styles.container}>
+    <View style={styles.mainContainer}>
+      <ScrollView contentContainerStyle={styles.scrollContainer}>
         <View style={styles.priceContainer}>
           <Controller
             control={control}
@@ -118,7 +126,7 @@ const Filters = () => {
               <CustomInputBox
                 onChange={onChange}
                 value={value}
-                width={350}
+                width={140}
                 height={60}
                 placeHolder={'0000'}
                 label={'Model Year'}
@@ -127,6 +135,22 @@ const Filters = () => {
               />
             )}
             name="year"
+          />
+          <Controller
+            control={control}
+            render={({field: {onChange, onBlur, value}}) => (
+              <CustomInputBox
+                onChange={onChange}
+                value={value}
+                width={140}
+                height={60}
+                placeHolder={'0'}
+                label={'Number of Seats'}
+                keyBoardType={'numeric'}
+                onBlur={onBlur}
+              />
+            )}
+            name="seats"
           />
         </View>
         <View style={styles.TransmissionContainer}>
@@ -147,43 +171,65 @@ const Filters = () => {
             name="transmission"
           />
         </View>
-        <View style={styles.buttonContainer}>
-          <SecondaryBorderButton
-            onPress={() => reset()}
-            title={'Reset Filters'}
-            width={170}
-          />
-          <PrimaryFullButton
-            onPress={handleSubmit(onSubmit)}
-            title="Filter"
-            width={170}
+        <View style={styles.FuelContainer}>
+          <Text style={styles.label}>Fuel Type</Text>
+          <Controller
+            control={control}
+            render={({field: {onChange, onBlur, value}}) => (
+              <CommonSelectDropDown
+                data={FuelData}
+                dropDownHeight={200}
+                placeholder={'Fuel Type'}
+                value={value}
+                onBlur={onBlur}
+                onChange={onChange}
+                search={true}
+              />
+            )}
+            name="fuelType"
           />
         </View>
+      </ScrollView>
+      <View style={styles.buttonContainer}>
+        <SecondaryBorderButton
+          onPress={() => reset()}
+          title={'Reset Filters'}
+          width={170}
+        />
+        <PrimaryFullButton
+          onPress={handleSubmit(onSubmit)}
+          title="Filter"
+          width={170}
+        />
       </View>
-    </>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   mainContainer: {
-    // paddingTop: 10,
-  },
-  container: {
     flex: 1,
     backgroundColor: appStyles.background.color,
-    // paddingTop: 20,
+  },
+  scrollContainer: {
     paddingHorizontal: 10,
-    flexDirection: 'column',
-    justifyContent: 'center',
+    paddingBottom: 80,
   },
   priceContainer: {
     flexDirection: 'row',
     justifyContent: 'space-around',
+    marginTop: 20,
   },
   buttonContainer: {
     flexDirection: 'row',
-    marginTop: 20,
     justifyContent: 'space-between',
+    alignItems: 'center',
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
+    padding: 10,
+    backgroundColor: appStyles.background.color,
   },
   ratingContainer: {
     marginTop: 15,
@@ -195,8 +241,9 @@ const styles = StyleSheet.create({
   },
   yearContainer: {
     marginTop: 15,
-    justifyContent: 'center',
+    justifyContent: 'space-around',
     alignItems: 'center',
+    flexDirection: 'row',
   },
   label: {
     color: appStyles.Text.color,
@@ -205,6 +252,9 @@ const styles = StyleSheet.create({
     fontWeight: '600',
   },
   TransmissionContainer: {
+    marginTop: 15,
+  },
+  FuelContainer: {
     marginTop: 15,
   },
 });
