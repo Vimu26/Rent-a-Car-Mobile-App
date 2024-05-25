@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {
   Image,
   SafeAreaView,
@@ -13,10 +13,26 @@ import {SearchInputBox} from '../../components/Input Boxes/inputBoxes';
 import {IconOnlyButton} from '../../components/Buttons/Buttons';
 import {useSelector} from 'react-redux';
 import {IUser} from '../../interfaces/user';
+import CarCard from '../../components/cards/CarRating.card';
+import axios from 'axios';
+import {CAR_BRANDS} from '../../types/types';
+import {useFocusEffect} from '@react-navigation/native';
+
+export interface ITopRatedCars {
+  _id: string;
+  brand: CAR_BRANDS;
+  car_name: string;
+  price_per_day: number;
+  rate: number;
+}
 
 const Home = ({navigation}: any) => {
   const [searchInput, setSearchInput] = useState('');
-  const token: string = useSelector((state: any) => state.auth.token);
+  const [loading, setLoading] = useState(true);
+  const [cars, setCars] = useState<ITopRatedCars[]>([]);
+  const [pageN, setPage] = useState(1);
+
+  // const token: string = useSelector((state: any) => state.auth.token);
   const user: IUser = useSelector((state: any) => state.auth.user);
 
   const brandsArrayList = [
@@ -65,166 +81,166 @@ const Home = ({navigation}: any) => {
   const handleInputChange = (text: string) => {
     setSearchInput(text);
   };
+
   const onClickFilter = () => {
     navigation.navigate('FilterCars');
   };
+
   const handleViewAllClick = () => {
     navigation.navigate('ViewCars');
   };
 
+  const getTopRatedCars = async (page: number, limit: number) => {
+    try {
+      const response = await axios.get(
+        'http://localhost:3200/api/cars/get/ratings',
+        {
+          params: {
+            page,
+            limit,
+          },
+        },
+      );
+      return response.data;
+    } catch (err) {
+      console.log(err);
+      return [];
+    }
+  };
+
+  const loadCars = async (reset = false) => {
+    if (reset) {
+      setCars([]);
+      setPage(1);
+    }
+
+    try {
+      const newCars = await getTopRatedCars(reset ? 1 : pageN, 10);
+      if (newCars) {
+        setCars(prevCars => [...(reset ? [] : prevCars), ...newCars]);
+        setPage(prevPage => prevPage + 1);
+      }
+      setLoading(false);
+    } catch (error) {
+      console.error(error);
+      setLoading(false);
+    }
+  };
+
+  useFocusEffect(
+    useCallback(() => {
+      loadCars(true);
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []),
+  );
+
   useEffect(() => {
-    console.log(token);
-    console.log(user);
+    loadCars();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
     <SafeAreaView style={styles.areaContainer}>
-      <ScrollView>
-        <View style={styles.container}>
-          {/* TODO @akalanka need to put the name oF the user */}
-          <Text style={styles.name}>{user.name}</Text>
-          <Text style={styles.subTitle}>Lets find your favorite car here </Text>
+      {loading ? (
+        <View style={styles.loadingContainer}>
+          <Text style={styles.loadingText}>Loading...</Text>
+        </View>
+      ) : (
+        <ScrollView>
+          <View style={styles.container}>
+            <Text style={styles.name}>{user.name}</Text>
+            <Text style={styles.subTitle}>
+              Lets find your favorite car here
+            </Text>
 
-          <View style={styles.container2}>
-            <View style={styles.searchContainer}>
-              <View style={styles.searchBox}>
-                <SearchInputBox
-                  value={searchInput}
-                  KeyBoardType="email"
-                  onChangeTextBox={handleInputChange}
-                  placeholder="Search for Cars"
-                  imageUrl={require('../../assets/icons8-search-96.png')}
-                  InputType="default"
-                  width={270}
-                  borderWidth={0}
-                  backgroundColor={appStyles.cardContainer.color}
-                  borderColor={appStyles.cardContainer.color}
-                />
+            <View style={styles.container2}>
+              <View style={styles.searchContainer}>
+                <View style={styles.searchBox}>
+                  <SearchInputBox
+                    value={searchInput}
+                    KeyBoardType="email"
+                    onChangeTextBox={handleInputChange}
+                    placeholder="Search for Cars"
+                    imageUrl={require('../../assets/icons8-search-96.png')}
+                    InputType="default"
+                    width={270}
+                    borderWidth={0}
+                    backgroundColor={appStyles.cardContainer.color}
+                    borderColor={appStyles.cardContainer.color}
+                  />
+                </View>
+                <View style={styles.iconButton}>
+                  <IconOnlyButton
+                    onPress={onClickFilter}
+                    icon={require('../../assets/filter.png')}
+                    width={50}
+                    backgroundColor={appStyles.main.backgroundColor}
+                  />
+                </View>
               </View>
-              <View style={styles.iconButton}>
-                <IconOnlyButton
-                  onPress={onClickFilter}
-                  icon={require('../../assets/filter.png')}
-                  width={50}
-                  backgroundColor={appStyles.main.backgroundColor}
-                />
+
+              <View style={styles.bannerCard}>
+                <View style={styles.bannerContent}>
+                  <Text style={styles.bannerCardTitle}>
+                    Car Audi R8, tunning
+                  </Text>
+                  <Text style={styles.bannerSubTitle}>
+                    Feel the V10 Roar; Rent the Audi R8
+                  </Text>
+                  <Text style={styles.bannerCardText}>400$ / DAY</Text>
+                </View>
+
+                <View style={styles.bannerImageContainer}>
+                  <Image
+                    style={styles.bannerImage}
+                    source={require('../../assets/hd-orange-audi-r8-car-png-24.png')}
+                  />
+                </View>
               </View>
             </View>
 
-            <View style={styles.bannerCard}>
-              <View style={styles.bannerContent}>
-                <Text style={styles.bannerCardTitle}>Car Audi R8, tunning</Text>
-                <Text style={styles.bannerSubTitle}>
-                  Feel the V10 Roar; Rent the Audi R8
-                </Text>
-                <Text style={styles.bannerCardText}>400$ / DAY</Text>
-              </View>
+            <View style={styles.headerContainer}>
+              <Text style={styles.heading}>Available Cars</Text>
+              <TouchableOpacity onPress={handleViewAllClick}>
+                <Text style={styles.view}>View all</Text>
+              </TouchableOpacity>
+            </View>
 
-              <View style={styles.bannerImageContainer}>
-                <Image
-                  style={styles.bannerImage}
-                  source={require('../../assets/hd-orange-audi-r8-car-png-24.png')}
-                />
-              </View>
+            <View style={styles.scrollH}>
+              <ScrollView horizontal={true}>
+                <View style={styles.brandContainerSet}>
+                  {brandsArrayList.map((brand, index) => (
+                    <TouchableOpacity style={styles.brandContainer} key={index}>
+                      <Image style={styles.brandLogo} source={brand.logoName} />
+                      <Text style={styles.brandName}>{brand.name}</Text>
+                    </TouchableOpacity>
+                  ))}
+                </View>
+              </ScrollView>
+            </View>
+
+            <View style={styles.headerContainer}>
+              <Text style={styles.heading}>Top Rated</Text>
+              <TouchableOpacity onPress={handleViewAllClick}>
+                <Text style={styles.view}>View all</Text>
+              </TouchableOpacity>
             </View>
           </View>
 
-          <View style={styles.headerContainer}>
-            <Text style={styles.heading}>Available Cars</Text>
-            <TouchableOpacity onPress={handleViewAllClick}>
-              <Text style={styles.view}>View all</Text>
-            </TouchableOpacity>
-          </View>
-
-          <View style={styles.scrollH}>
+          <View style={styles.carCardContainer}>
             <ScrollView horizontal={true}>
-              <View style={styles.brandContainerSet}>
-                {brandsArrayList.map((brand, index) => (
-                  <TouchableOpacity style={styles.brandContainer} key={index}>
-                    <Image style={styles.brandLogo} source={brand.logoName} />
-                    <Text style={styles.brandName}>{brand.name}</Text>
-                  </TouchableOpacity>
-                ))}
-              </View>
+              {cars.map((car, i) => (
+                <CarCard key={i} car={car} />
+              ))}
+              <TouchableOpacity
+                style={styles.loadMoreContainer}
+                onPress={() => loadCars(false)}>
+                <Text style={styles.loadMore}>Load more</Text>
+              </TouchableOpacity>
             </ScrollView>
           </View>
-
-          <View style={styles.headerContainer}>
-            <Text style={styles.heading}>Top Rated</Text>
-            <TouchableOpacity onPress={handleViewAllClick}>
-              <Text style={styles.view}>View all</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-
-        {/* Top rated car cards #TODO */}
-        <View style={styles.carCardContainer}>
-          <ScrollView horizontal={true}>
-            <View style={styles.carCard}>
-              <TouchableOpacity>
-                <View style={styles.carCardHeader}>
-                  <Image
-                    style={styles.carCardIcon}
-                    source={require('../../assets/brands/icons8-audi-a-german-automobile-manufacturer-of-luxury-vehicles-96.png')}
-                  />
-                  <Image
-                    style={styles.favIcon}
-                    source={require('../../assets/common/liked.png')}
-                  />
-                </View>
-                <View style={styles.cardImg}>
-                  <Image
-                    style={styles.carImg}
-                    source={require('../../assets/cars/Lovepik_com-401434180-a-car.png')}
-                  />
-                </View>
-                <View style={styles.cardBottomTextContainer}>
-                  <Text style={styles.cardBottomText}>Audi A7 Sportsback</Text>
-                  <View style={styles.cardRatings}>
-                    <Text style={styles.cardBottomText}>4.8</Text>
-                    <Image
-                      style={styles.star}
-                      source={require('../../assets/common/star.png')}
-                    />
-                  </View>
-                </View>
-              </TouchableOpacity>
-            </View>
-
-            <View style={styles.carCard}>
-              <TouchableOpacity>
-                <View style={styles.carCardHeader}>
-                  <Image
-                    style={styles.carCardIcon}
-                    source={require('../../assets/brands/icons8-audi-a-german-automobile-manufacturer-of-luxury-vehicles-96.png')}
-                  />
-                  <Image
-                    style={styles.favIcon}
-                    source={require('../../assets/common/Favorite.png')}
-                  />
-                </View>
-                <View style={styles.cardImg}>
-                  <Image
-                    style={styles.carImg}
-                    source={require('../../assets/cars/Lovepik_com-401434180-a-car.png')}
-                  />
-                </View>
-                <View style={styles.cardBottomTextContainer}>
-                  <Text style={styles.cardBottomText}>Audi A7 Sportsback</Text>
-                  <View style={styles.cardRatings}>
-                    <Text style={styles.cardBottomText}>4.8</Text>
-                    <Image
-                      style={styles.star}
-                      source={require('../../assets/common/star.png')}
-                    />
-                  </View>
-                </View>
-              </TouchableOpacity>
-            </View>
-          </ScrollView>
-        </View>
-      </ScrollView>
+        </ScrollView>
+      )}
     </SafeAreaView>
   );
 };
@@ -402,6 +418,27 @@ const styles = StyleSheet.create({
     height: 240,
     rowGap: 10,
     gap: 10,
+    justifyContent: 'center', // Center the car cards horizontally
+  },
+  loadingContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  loadingText: {
+    fontSize: 18,
+    color: 'white',
+  },
+  loadMoreContainer: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    // marginVertical: 20,
+    margin: 'auto',
+  },
+  loadMore: {
+    fontSize: 18,
+    color: 'white',
+    textAlign: 'center',
   },
 });
 
