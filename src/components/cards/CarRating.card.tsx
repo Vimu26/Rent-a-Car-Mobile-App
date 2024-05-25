@@ -1,8 +1,14 @@
 import React from 'react';
 import {View, Text, Image, TouchableOpacity, StyleSheet} from 'react-native';
 import {appStyles} from '../../themes/Common-theme';
+import {ITopRatedCars} from '../../features/Home/Home';
 
-const CarCard = () => {
+interface ICarCardRating {
+  car: ITopRatedCars;
+  key?: number;
+}
+
+const CarCard = ({car}: ICarCardRating) => {
   return (
     <View style={styles.carCard}>
       <View style={styles.carCardHeader}>
@@ -31,9 +37,11 @@ const CarCard = () => {
           />
         </View>
         <View style={styles.cardBottomTextContainer}>
-          <Text style={styles.cardBottomText}>Audi A7 Sportsback</Text>
+          <Text style={styles.cardBottomText}>
+            {car.brand}&nbsp;{car.car_name}
+          </Text>
           <View style={styles.cardRatings}>
-            <Text style={styles.cardBottomText}>4.8</Text>
+            <Text style={styles.cardBottomText}>{car.rate}</Text>
             <Image
               style={styles.star}
               source={require('../../assets/common/star.png')}
