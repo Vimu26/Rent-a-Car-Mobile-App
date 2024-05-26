@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useState} from 'react';
+import React, {useCallback, useState} from 'react';
 import {
   Image,
   SafeAreaView,
@@ -11,12 +11,13 @@ import {
 import {appStyles} from '../../themes/Common-theme';
 import {SearchInputBox} from '../../components/Input Boxes/inputBoxes';
 import {IconOnlyButton} from '../../components/Buttons/Buttons';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {IUser} from '../../interfaces/user';
 import CarCard from '../../components/cards/CarRating.card';
 import axios from 'axios';
-import {CAR_BRANDS} from '../../types/types';
+import {CAR_BRANDS, TRANSMISSION_TYPES} from '../../types/types';
 import {useFocusEffect} from '@react-navigation/native';
+import {setFavCars} from '../../state/cars/favoriteCras';
 
 export interface ITopRatedCars {
   _id: string;
@@ -24,6 +25,9 @@ export interface ITopRatedCars {
   car_name: string;
   price_per_day: number;
   rate: number;
+  seats: number;
+  transmission: TRANSMISSION_TYPES;
+  speed: number;
 }
 
 const Home = ({navigation}: any) => {
@@ -31,6 +35,11 @@ const Home = ({navigation}: any) => {
   const [loading, setLoading] = useState(true);
   const [cars, setCars] = useState<ITopRatedCars[]>([]);
   const [pageN, setPage] = useState(1);
+  const [carsLoaded, setCarsLoaded] = useState(false);
+  const dispatch = useDispatch();
+  const FavCars: ITopRatedCars[] = useSelector(
+    (state: any) => state.favoriteCars.favCars,
+  );
 
   // const token: string = useSelector((state: any) => state.auth.token);
   const user: IUser = useSelector((state: any) => state.auth.user);
@@ -90,6 +99,18 @@ const Home = ({navigation}: any) => {
     navigation.navigate('ViewCars');
   };
 
+  const toggleFavorite = (car: ITopRatedCars) => {
+    if (FavCars.some(favCar => favCar._id.toString() === car._id.toString())) {
+      const updatedFavorites = FavCars.filter(favCar => favCar._id !== car._id);
+      dispatch(setFavCars(updatedFavorites));
+      return updatedFavorites;
+    } else {
+      const updatedFavorites = [...FavCars, car];
+      dispatch(setFavCars(updatedFavorites));
+      return updatedFavorites;
+    }
+  };
+
   const getTopRatedCars = async (page: number, limit: number) => {
     try {
       const response = await axios.get(
@@ -108,16 +129,11 @@ const Home = ({navigation}: any) => {
     }
   };
 
-  const loadCars = async (reset = false) => {
-    if (reset) {
-      setCars([]);
-      setPage(1);
-    }
-
+  const loadCars = async () => {
     try {
-      const newCars = await getTopRatedCars(reset ? 1 : pageN, 10);
+      const newCars = await getTopRatedCars(pageN, 2);
       if (newCars) {
-        setCars(prevCars => [...(reset ? [] : prevCars), ...newCars]);
+        setCars(prevCars => [...prevCars, ...newCars]);
         setPage(prevPage => prevPage + 1);
       }
       setLoading(false);
@@ -129,15 +145,13 @@ const Home = ({navigation}: any) => {
 
   useFocusEffect(
     useCallback(() => {
-      loadCars(true);
+      if (!carsLoaded) {
+        loadCars();
+        setCarsLoaded(true);
+      }
       // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []),
+    }, [carsLoaded]),
   );
-
-  useEffect(() => {
-    loadCars();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   return (
     <SafeAreaView style={styles.areaContainer}>
@@ -229,12 +243,17 @@ const Home = ({navigation}: any) => {
 
           <View style={styles.carCardContainer}>
             <ScrollView horizontal={true}>
-              {cars.map((car, i) => (
-                <CarCard key={i} car={car} />
+              {cars.map((car, index) => (
+                <CarCard
+                  key={index}
+                  car={car}
+                  isFavorite={FavCars.some(favCar => favCar._id === car._id)}
+                  onToggleFavorite={toggleFavorite}
+                />
               ))}
               <TouchableOpacity
                 style={styles.loadMoreContainer}
-                onPress={() => loadCars(false)}>
+                onPress={loadCars}>
                 <Text style={styles.loadMore}>Load more</Text>
               </TouchableOpacity>
             </ScrollView>
