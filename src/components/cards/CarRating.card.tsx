@@ -2,6 +2,7 @@ import React from 'react';
 import {View, Text, Image, TouchableOpacity, StyleSheet} from 'react-native';
 import {appStyles} from '../../themes/Common-theme';
 import {ITopRatedCars} from '../../features/Home/Home';
+import {capitalizeFirstLetter} from '../../utils/String.utils';
 
 export interface ICarCardRating {
   car: ITopRatedCars;
@@ -45,7 +46,7 @@ const CarCard = ({car, isFavorite, onToggleFavorite}: ICarCardRating) => {
         </View>
         <View style={styles.cardBottomTextContainer}>
           <Text style={styles.cardBottomText}>
-            {car.brand}&nbsp;{car.car_name}
+            {capitalizeFirstLetter(car.brand)}&nbsp;{car.car_name}
           </Text>
           <View style={styles.cardRatings}>
             <Text style={styles.cardBottomText}>{car.rate}</Text>
