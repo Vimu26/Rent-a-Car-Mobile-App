@@ -2,13 +2,20 @@ import React from 'react';
 import {View, Text, Image, TouchableOpacity, StyleSheet} from 'react-native';
 import {appStyles} from '../../themes/Common-theme';
 import {ITopRatedCars} from '../../features/Home/Home';
+import {capitalizeFirstLetter} from '../../utils/String.utils';
 
-interface ICarCardRating {
+export interface ICarCardRating {
   car: ITopRatedCars;
   key?: number;
+  isFavorite: boolean;
+  onToggleFavorite: (car: ITopRatedCars) => void;
 }
 
-const CarCard = ({car}: ICarCardRating) => {
+export interface IFavoriteCars {
+  car: ITopRatedCars;
+}
+
+const CarCard = ({car, isFavorite, onToggleFavorite}: ICarCardRating) => {
   return (
     <View style={styles.carCard}>
       <View style={styles.carCardHeader}>
@@ -16,13 +23,14 @@ const CarCard = ({car}: ICarCardRating) => {
           style={styles.carCardIcon}
           source={require('../../assets/brands/icons8-audi-a-german-automobile-manufacturer-of-luxury-vehicles-96.png')}
         />
-        <TouchableOpacity
-          onPress={() => {
-            console.log('1');
-          }}>
+        <TouchableOpacity onPress={() => onToggleFavorite(car)}>
           <Image
             style={styles.favIcon}
-            source={require('../../assets/common/liked.png')}
+            source={
+              isFavorite
+                ? require('../../assets/common/Favorite-selected.png')
+                : require('../../assets/common/Favorite.png')
+            }
           />
         </TouchableOpacity>
       </View>
@@ -38,7 +46,7 @@ const CarCard = ({car}: ICarCardRating) => {
         </View>
         <View style={styles.cardBottomTextContainer}>
           <Text style={styles.cardBottomText}>
-            {car.brand}&nbsp;{car.car_name}
+            {capitalizeFirstLetter(car.brand)}&nbsp;{car.car_name}
           </Text>
           <View style={styles.cardRatings}>
             <Text style={styles.cardBottomText}>{car.rate}</Text>
