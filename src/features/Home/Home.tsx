@@ -18,6 +18,7 @@ import axios from 'axios';
 import {CAR_BRANDS, TRANSMISSION_TYPES} from '../../types/types';
 import {useFocusEffect} from '@react-navigation/native';
 import {setFavCars} from '../../state/cars/favoriteCras';
+import {capitalizeFirstLetter} from '../../utils/String.utils';
 
 export interface ITopRatedCars {
   _id: string;
@@ -41,49 +42,49 @@ const Home = ({navigation}: any) => {
     (state: any) => state.favoriteCars.favCars,
   );
 
-  // const token: string = useSelector((state: any) => state.auth.token);
+  const token: string = useSelector((state: any) => state.auth.token);
   const user: IUser = useSelector((state: any) => state.auth.user);
 
   const brandsArrayList = [
     {
       logoName: require('../../assets//brands/icons8-bmw-96.png'),
-      name: 'BMW',
+      name: CAR_BRANDS.BMW,
     },
     {
       logoName: require('../../assets/brands/icons8-porsche-96.png'),
-      name: 'Porsche',
+      name: CAR_BRANDS.PORSCHE,
     },
     {
       logoName: require('../../assets/brands/icons8-mercedes-benz-96.png'),
-      name: 'Mercedes',
+      name: CAR_BRANDS.BENZ,
     },
     {
       logoName: require('../../assets/brands/icons8-ford-96.png'),
-      name: 'Ford',
+      name: CAR_BRANDS.FORD,
     },
     {
       logoName: require('../../assets/brands/icons8-audi-a-german-automobile-manufacturer-of-luxury-vehicles-96.png'),
-      name: 'Audi',
+      name: CAR_BRANDS.AUDI,
     },
     {
       logoName: require('../../assets/brands/icons8-nissan-96.png'),
-      name: 'Nissan',
+      name: CAR_BRANDS.NISSAN,
     },
     {
       logoName: require('../../assets/brands/icons8-toyota-96.png'),
-      name: 'Toyota',
+      name: CAR_BRANDS.TOYOTA,
     },
     {
       logoName: require('../../assets/brands/icons8-honda-96.png'),
-      name: 'Honda',
+      name: CAR_BRANDS.HONDA,
     },
     {
       logoName: require('../../assets/brands/icons8-mitsubishi-96.png'),
-      name: 'Mitsubishi',
+      name: CAR_BRANDS.MITSUBISHI,
     },
     {
       logoName: require('../../assets/brands/icons8-mazda-96.png'),
-      name: 'Mazda',
+      name: CAR_BRANDS.MAZDA,
     },
   ];
 
@@ -140,6 +141,23 @@ const Home = ({navigation}: any) => {
     } catch (error) {
       console.error(error);
       setLoading(false);
+    }
+  };
+  const getCarsByBrand = async (brand: CAR_BRANDS) => {
+    try {
+      const response = await axios.get('http://localhost:3200/api/cars', {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        params: {
+          brand: brand,
+        },
+      });
+      console.log(response.data);
+      return response.data;
+    } catch (err) {
+      console.log(err);
+      return [];
     }
   };
 
@@ -224,9 +242,14 @@ const Home = ({navigation}: any) => {
               <ScrollView horizontal={true}>
                 <View style={styles.brandContainerSet}>
                   {brandsArrayList.map((brand, index) => (
-                    <TouchableOpacity style={styles.brandContainer} key={index}>
+                    <TouchableOpacity
+                      style={styles.brandContainer}
+                      key={index}
+                      onPress={() => getCarsByBrand(brand.name)}>
                       <Image style={styles.brandLogo} source={brand.logoName} />
-                      <Text style={styles.brandName}>{brand.name}</Text>
+                      <Text style={styles.brandName}>
+                        {capitalizeFirstLetter(brand.name)}
+                      </Text>
                     </TouchableOpacity>
                   ))}
                 </View>
