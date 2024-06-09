@@ -251,7 +251,6 @@ const styles = StyleSheet.create({
   textWrapperBottom: {
     marginLeft: 15,
     marginRight: 15,
-    // marginTop: 15,
     marginBottom: 10,
   },
   linkText: {
