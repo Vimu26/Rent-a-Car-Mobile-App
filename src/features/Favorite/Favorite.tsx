@@ -1,17 +1,25 @@
 import React from 'react';
 import {ScrollView, StyleSheet, Text, View} from 'react-native';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {ITopRatedCars} from '../Home/Home';
 import {appStyles} from '../../themes/Common-theme';
 import {capitalizeFirstLetter} from '../../utils/String.utils';
 import ViewAllCarCard from '../../components/cards/carCards';
+import {setFavCars} from '../../state/cars/favoriteCras';
 
 const Favorite = () => {
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
   // const token: string = useSelector((state: any) => state.auth.token);
   const FavCars: ITopRatedCars[] = useSelector(
     (state: any) => state.favoriteCars.favCars,
   );
+
+  const favToggled = (id: string) => {
+    const newFvCars = FavCars.filter(data => {
+      return id !== data._id.toString();
+    });
+    dispatch(setFavCars(newFvCars));
+  };
 
   return (
     <View style={styles.container}>
@@ -20,14 +28,17 @@ const Favorite = () => {
           <Text style={styles.heading}>Favorite Cars</Text>
           {FavCars.map((car, index) => (
             <ViewAllCarCard
+              _id={car._id}
               key={index}
-              brand={capitalizeFirstLetter(car.brand)}
+              brand={capitalizeFirstLetter(car?.brand)}
               rating={car.rate}
               name={car.car_name}
               price={car.price_per_day}
               seat={car.seats}
               speed={car.speed}
-              transmission={capitalizeFirstLetter(car.transmission)}
+              transmission={capitalizeFirstLetter(car?.transmission)}
+              addedAsFavorite={true}
+              onToggleFavorite={favToggled}
             />
           ))}
         </ScrollView>
@@ -53,7 +64,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     textAlign: 'center',
     marginBottom: 20,
-    paddingTop: 30,
+    paddingTop: 50,
   },
   notFound: {
     fontSize: 30,
