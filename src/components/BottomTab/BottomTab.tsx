@@ -106,8 +106,8 @@ const styles = StyleSheet.create({
   tabBar: {
     flexDirection: 'row',
     overflow: 'hidden',
-    height: 60,
-    backgroundColor: appStyles.cardContainer.color,
+    height: appStyles.screenHeight.height * 0.085,
+    backgroundColor: appStyles.background.color,
     justifyContent: 'space-around',
     alignItems: 'center',
   },

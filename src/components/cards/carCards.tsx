@@ -5,6 +5,7 @@ import {appStyles} from '../../themes/Common-theme';
 import {CAR_BRANDS, TRANSMISSION_TYPES} from '../../types/types';
 
 export interface cardDetails {
+  _id: string;
   brand: CAR_BRANDS | string;
   rating: number;
   name: string;
@@ -12,9 +13,12 @@ export interface cardDetails {
   seat: number;
   speed: number;
   transmission: TRANSMISSION_TYPES | string;
+  addedAsFavorite?: boolean;
+  onToggleFavorite: (id: string) => void;
 }
 
 const ViewAllCarCard = ({
+  _id,
   brand,
   rating,
   name,
@@ -22,6 +26,8 @@ const ViewAllCarCard = ({
   seat,
   speed,
   transmission,
+  addedAsFavorite,
+  onToggleFavorite,
 }: cardDetails) => {
   return (
     <View style={styles.cardContainer}>
@@ -35,10 +41,14 @@ const ViewAllCarCard = ({
             />
           </View>
           <View style={styles.favorite}>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => onToggleFavorite(_id)}>
               <Image
                 style={[styles.starImage, styles.center]}
-                source={require('../../assets/common/Favorite.png')}
+                source={
+                  addedAsFavorite
+                    ? require('../../assets/common/Favorite-selected.png')
+                    : require('../../assets/common/Favorite.png')
+                }
               />
             </TouchableOpacity>
           </View>
@@ -120,8 +130,8 @@ const styles = StyleSheet.create({
     borderWidth: 0.5,
     borderRadius: 10,
     backgroundColor: appStyles.cardContainer.color,
-    paddingHorizontal: 15,
-    marginVertical: 15,
+    paddingHorizontal: 20,
+    marginBottom: 15,
   },
   cardContainerIn: {
     flex: 1,

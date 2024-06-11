@@ -1,4 +1,4 @@
-import {StyleSheet} from 'react-native';
+import {Dimensions, StyleSheet} from 'react-native';
 
 export const appStyles = StyleSheet.create({
   main: {
@@ -15,5 +15,11 @@ export const appStyles = StyleSheet.create({
   },
   Text: {
     color: '#acb4c4',
+  },
+  screenWidth: {
+    width: Dimensions.get('window').width,
+  },
+  screenHeight: {
+    height: Dimensions.get('window').height,
   },
 });
