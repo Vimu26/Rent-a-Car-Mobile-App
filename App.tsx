@@ -13,20 +13,23 @@ import {TouchableOpacity} from 'react-native';
 import ViewCars from './src/features/cars/ViewCars';
 import Filters from './src/features/filters/Filters';
 import HeaderWithBackButton from './src/components/HeaderWithBackButton/HeaderWithBackButton';
+import {SafeAreaView} from 'react-native-safe-area-context';
 
 function App(): React.JSX.Element {
   const Stack = createNativeStackNavigator();
 
   const headerImage = () => {
     return (
-      <View style={styles.outer}>
-        <View style={styles.viewHeader}>
-          <Image
-            source={require('./src/assets/logo-no-background.png')}
-            style={styles.imageView}
-          />
+      <SafeAreaView style={styles.safeArea}>
+        <View style={styles.outer}>
+          <View style={styles.viewHeader}>
+            <Image
+              source={require('./src/assets/logo-no-background.png')}
+              style={styles.imageView}
+            />
+          </View>
         </View>
-      </View>
+      </SafeAreaView>
     );
   };
 
@@ -37,21 +40,23 @@ function App(): React.JSX.Element {
       navigation.goBack();
     };
     return (
-      <View style={styles.headerUp}>
-        <View style={styles.backImageContainer}>
-          <TouchableOpacity onPress={goBack}>
-            <Image
-              source={require('./src/assets/common/icons8-back-48.png')}
-              style={styles.backImage}
-            />
-          </TouchableOpacity>
+      <SafeAreaView style={styles.safeArea2}>
+        <View style={styles.headerUp}>
+          <View style={styles.backImageContainer}>
+            <TouchableOpacity onPress={goBack}>
+              <Image
+                source={require('./src/assets/common/icons8-back-48.png')}
+                style={styles.backImage}
+              />
+            </TouchableOpacity>
+          </View>
+          <View style={styles.upText}>
+            <TouchableOpacity onPress={goBack}>
+              <Text style={styles.upText2}>{name}</Text>
+            </TouchableOpacity>
+          </View>
         </View>
-        <View style={styles.upText}>
-          <TouchableOpacity onPress={goBack}>
-            <Text style={styles.upText2}>{name}</Text>
-          </TouchableOpacity>
-        </View>
-      </View>
+      </SafeAreaView>
     );
   };
 
@@ -145,7 +150,7 @@ const styles = StyleSheet.create({
   viewHeader: {
     flexDirection: 'row',
     alignItems: 'center',
-    height: appStyles.screenHeight.height * 0.135,
+    height: appStyles.screenHeight.height * 0.11,
     justifyContent: 'center',
     backgroundColor: '#272f3e',
     borderBottomRightRadius: 35,
@@ -163,14 +168,13 @@ const styles = StyleSheet.create({
   },
   headerUp: {
     backgroundColor: appStyles.background.color,
-    paddingTop: 15,
     flexDirection: 'row',
     alignItems: 'center',
     paddingHorizontal: 20,
-    height: 80,
+    height: appStyles.screenHeight.height * 0.08,
   },
   backImage: {
-    //backgroundColor: appStyles.background.color,
+    //
   },
   backImageContainer: {
     flex: 1,
@@ -184,6 +188,14 @@ const styles = StyleSheet.create({
     color: appStyles.Text.color,
     fontSize: 20,
     fontWeight: 'bold',
+  },
+  safeArea: {
+    flex: 1,
+    backgroundColor: appStyles.cardContainer.color,
+  },
+  safeArea2: {
+    flex: 1,
+    backgroundColor: appStyles.background.color,
   },
 });
 
