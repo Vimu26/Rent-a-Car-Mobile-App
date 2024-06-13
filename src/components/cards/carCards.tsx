@@ -4,7 +4,7 @@ import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {appStyles} from '../../themes/Common-theme';
 import {CAR_BRANDS, TRANSMISSION_TYPES} from '../../types/types';
 
-export interface cardDetails {
+export interface CardDetails {
   _id: string;
   brand: CAR_BRANDS | string;
   rating: number;
@@ -28,7 +28,7 @@ const ViewAllCarCard = ({
   transmission,
   addedAsFavorite,
   onToggleFavorite,
-}: cardDetails) => {
+}: CardDetails) => {
   return (
     <View style={styles.cardContainer}>
       <View style={styles.cardContainerIn}>
@@ -127,7 +127,8 @@ const styles = StyleSheet.create({
   cardContainer: {
     height: 280,
     width: '100%',
-    borderWidth: 0.5,
+    borderWidth: 1,
+    borderColor: appStyles.cardContainer.color,
     borderRadius: 10,
     backgroundColor: appStyles.cardContainer.color,
     paddingHorizontal: 20,
@@ -135,8 +136,6 @@ const styles = StyleSheet.create({
   },
   cardContainerIn: {
     flex: 1,
-    // justifyContent: 'center',
-    // alignItems: 'center',
   },
   containerHeader: {
     flexDirection: 'row',
