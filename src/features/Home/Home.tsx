@@ -132,7 +132,7 @@ const Home = ({navigation}: any) => {
 
   const loadCars = async () => {
     try {
-      const newCars = await getTopRatedCars(pageN, 2);
+      const newCars = await getTopRatedCars(pageN, 5);
       if (newCars) {
         setCars(prevCars => [...prevCars, ...newCars]);
         setPage(prevPage => prevPage + 1);
@@ -195,7 +195,7 @@ const Home = ({navigation}: any) => {
                     placeholder="Search for Cars"
                     imageUrl={require('../../assets/icons8-search-96.png')}
                     InputType="default"
-                    width={270}
+                    width={appStyles.screenWidth.width * 0.8}
                     borderWidth={0}
                     backgroundColor={appStyles.cardContainer.color}
                     borderColor={appStyles.cardContainer.color}
@@ -334,7 +334,7 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
     marginBottom: 20,
     borderRadius: 10,
-    width: 330,
+    width: appStyles.screenWidth.width * 0.95,
     backgroundColor: '#272f3e',
   },
   bannerCardTitle: {
