@@ -3,14 +3,20 @@ import {StyleSheet, Text, View, ScrollView} from 'react-native';
 import {appStyles} from '../../themes/Common-theme';
 import ViewAllCarCard from '../../components/cards/carCards';
 import axios from 'axios';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {ICarDetails} from '../../interfaces/user';
 import {capitalizeFirstLetter} from '../../utils/String.utils';
+import {ITopRatedCars} from '../Home/Home';
+import {setFavCars} from '../../state/cars/favoriteCras';
 
 const ViewCars = () => {
   const token: string = useSelector((state: any) => state.auth.token);
   const [cars, setCars] = useState<ICarDetails[]>([]);
   const [loading, setLoading] = useState(true);
+  const dispatch = useDispatch();
+  const FavCars: ITopRatedCars[] = useSelector(
+    (state: any) => state.favoriteCars.favCars,
+  );
 
   useEffect(() => {
     setTimeout(() => {
@@ -34,6 +40,13 @@ const ViewCars = () => {
     }
   };
 
+  const favToggled = (id: string) => {
+    const newFvCars = FavCars.filter(data => {
+      return id !== data._id.toString();
+    });
+    dispatch(setFavCars(newFvCars));
+  };
+
   return (
     <View style={styles.upperContainer}>
       {/* <View style={styles.header}>
@@ -49,6 +62,7 @@ const ViewCars = () => {
               ) : cars.length > 0 ? (
                 cars.map((car, index) => (
                   <ViewAllCarCard
+                    _id={car._id}
                     key={index}
                     brand={capitalizeFirstLetter(car.brand)}
                     rating={car.rate}
@@ -57,6 +71,7 @@ const ViewCars = () => {
                     seat={car.seats}
                     speed={car.speed}
                     transmission={capitalizeFirstLetter(car.transmission)}
+                    onToggleFavorite={favToggled}
                   />
                 ))
               ) : (
