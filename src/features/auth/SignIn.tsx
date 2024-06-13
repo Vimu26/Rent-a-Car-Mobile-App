@@ -11,10 +11,11 @@ import {Controller, useForm} from 'react-hook-form';
 import {useFocusEffect} from '@react-navigation/native';
 import {useDispatch} from 'react-redux';
 import {setLogin} from '../../state/auth/auth';
+import {appStyles} from '../../themes/Common-theme';
 
 const SignIn = ({navigation}: any) => {
   const [isVisible, setIsVisible] = useState(false);
-  const disPatch = useDispatch();
+  const dispatch = useDispatch();
 
   const {
     control,
@@ -51,7 +52,7 @@ const SignIn = ({navigation}: any) => {
         },
       );
       if (response.data) {
-        disPatch(
+        dispatch(
           setLogin({
             user: response.data.user,
             token: response.data.token,
@@ -78,7 +79,6 @@ const SignIn = ({navigation}: any) => {
 
   return (
     <View style={styles.container}>
-      {/* <Text style={styles.header}>Create an Account</Text> */}
       <Text style={styles.header}>Welcome Back!</Text>
       <View style={styles.emailBox}>
         <Controller
@@ -120,7 +120,7 @@ const SignIn = ({navigation}: any) => {
               KeyBoardType="default"
               onChangeTextBox={onChange}
               placeholder="Password"
-              onRightImagePress={setIsVisible}
+              onRightImagePress={() => setIsVisible(!isVisible)}
               onBlur={onBlur}
               leftImageUrl={require('../../assets/icons8-lock-48.png')}
               rightImageUrl={
@@ -128,6 +128,7 @@ const SignIn = ({navigation}: any) => {
                   ? require('../../assets/icons8-visible-60.png')
                   : require('../../assets/icons8-not-visible-60.png')
               }
+              secureTextEntry={!isVisible}
             />
           )}
           name="password"
@@ -141,7 +142,7 @@ const SignIn = ({navigation}: any) => {
           By Signing up, you agree to our{' '}
           <Text
             style={styles.linkText}
-            onPress={() => Linking.openURL('http://google.com')}>
+            onPress={() => Linking.openURL('http://facebook.com')}>
             Terms of Services
           </Text>
           <Text style={styles.normalText}> and </Text>
@@ -157,7 +158,7 @@ const SignIn = ({navigation}: any) => {
           onPress={handleSubmit(onLogin)}
           title="Sign In"
           disabled={!isValid}
-          width={320}
+          width={appStyles.screenWidth.width * 0.9}
         />
       </View>
       <View style={styles.dividerContainer}>
@@ -249,7 +250,7 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
   divider: {
-    width: 120,
+    width: appStyles.screenWidth.width * 0.33,
     height: 1,
     backgroundColor: '#acb4c4',
   },

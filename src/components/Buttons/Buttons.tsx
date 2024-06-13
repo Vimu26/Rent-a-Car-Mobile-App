@@ -9,13 +9,14 @@ export const PrimaryFullButton = ({
   disabled,
   width,
   borderRadius,
+  height,
 }: any) => {
   return (
     <TouchableOpacity
       style={[
         styles.button,
         disabled && styles.buttonDisabled,
-        {width: width, borderRadius: borderRadius ?? 15},
+        {width: width, borderRadius: borderRadius ?? 8, height: height ?? 50},
       ]}
       onPress={!disabled ? onPress : null}
       disabled={disabled}>
@@ -135,7 +136,7 @@ const styles = StyleSheet.create({
   },
   imageIconContainer: {
     flexDirection: 'row',
-    width: 320,
+    width: appStyles.screenWidth.width * 0.9,
     height: 50,
     alignItems: 'center',
     justifyContent: 'center',

@@ -27,6 +27,7 @@ const LandingPage = ({navigation}: any) => {
           title={'Get Started'}
           width={appStyles.screenWidth.width * 0.9}
           borderRadius={40}
+          height={60}
         />
         {/* REMOVED GUEST PART */}
         {/* <SecondaryFullButton

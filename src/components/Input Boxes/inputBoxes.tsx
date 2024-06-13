@@ -190,21 +190,21 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     paddingHorizontal: 10,
     height: 60,
-    width: 320,
+    width: appStyles.screenWidth.width * 0.9,
   },
   input2: {
     fontSize: 20,
     marginLeft: 5,
     color: 'white',
     overflow: 'hidden',
-    width: 220,
+    width: appStyles.screenWidth.width * 0.63,
   },
   input1: {
     fontSize: 20,
     marginLeft: 5,
     color: 'white',
     overflow: 'hidden',
-    width: 260,
+    width: appStyles.screenWidth.width * 0.73,
   },
   imageStyle: {
     padding: 10,
@@ -229,7 +229,7 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
     paddingRight: 10,
     height: 60,
-    width: 320,
+    width: appStyles.screenWidth.width * 0.9,
   },
   innerContainer: {
     flexDirection: 'row',
