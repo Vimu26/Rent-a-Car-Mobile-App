@@ -1,15 +1,15 @@
 export enum CAR_BRANDS {
-  ALL = 'All',
-  TOYOTA = 'Toyota',
-  NISSAN = 'Nissan',
-  AUDI = 'Audi',
-  PORSCHE = 'Porsche',
-  MAZDA = 'Mazda',
-  MITSUBISHI = 'Mitsubishi',
-  BMW = 'Bmw',
-  BENZ = 'Benz',
-  HONDA = 'Honda',
-  FORD = 'Ford',
+  ALL = 'ALL',
+  TOYOTA = 'TOYOTA',
+  NISSAN = 'NISSAN',
+  AUDI = 'AUDI',
+  PORSCHE = 'PORSCHE',
+  MAZDA = 'MAZDA',
+  MITSUBISHI = 'MITSUBISHI',
+  BMW = 'BMW',
+  BENZ = 'BENZ',
+  HONDA = 'HONDA',
+  FORD = 'FORD',
 }
 
 export enum TRANSMISSION_TYPES {

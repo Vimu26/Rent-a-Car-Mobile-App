@@ -19,7 +19,7 @@ export interface ILogin {
 }
 
 export interface ICarDetails {
-  _id?: string;
+  _id: string;
   brand: CAR_BRANDS;
   car_name: string;
   price_per_day: number;
