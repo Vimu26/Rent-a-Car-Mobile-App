@@ -1,16 +1,13 @@
 import React from 'react';
 import {View, Text, StyleSheet, Image} from 'react-native';
 import {appStyles} from '../../themes/Common-theme';
-import {
-  PrimaryFullButton,
-  SecondaryFullButton,
-} from '../../components/Buttons/Buttons';
+import {PrimaryFullButton} from '../../components/Buttons/Buttons';
 
 const LandingPage = ({navigation}: any) => {
-  const continueAsGuest = () => {
-    // Alert.alert('Secondary Button pressed');
-    navigation.navigate('Home');
-  };
+  // const continueAsGuest = () => {
+  //   // Alert.alert('Secondary Button pressed');
+  //   navigation.navigate('Home');
+  // };
 
   const getStarted = () => {
     navigation.navigate('SignIn');
@@ -28,13 +25,16 @@ const LandingPage = ({navigation}: any) => {
         <PrimaryFullButton
           onPress={getStarted}
           title={'Get Started'}
-          width={320}
+          width={appStyles.screenWidth.width * 0.9}
+          borderRadius={40}
+          height={60}
         />
-        <SecondaryFullButton
+        {/* REMOVED GUEST PART */}
+        {/* <SecondaryFullButton
           onPress={continueAsGuest}
           title={'Continue as a guest'}
           width={320}
-        />
+        /> */}
       </View>
     </View>
   );
@@ -44,7 +44,7 @@ export const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    paddingTop: 130,
+    justifyContent: 'center',
   },
   textHeader: {
     marginLeft: 45,

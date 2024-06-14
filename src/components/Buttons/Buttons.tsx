@@ -3,10 +3,21 @@ import {TouchableOpacity, Text, StyleSheet, View, Image} from 'react-native';
 import {appStyles} from '../../themes/Common-theme';
 
 //This Button With Background Color
-export const PrimaryFullButton = ({onPress, title, disabled, width}: any) => {
+export const PrimaryFullButton = ({
+  onPress,
+  title,
+  disabled,
+  width,
+  borderRadius,
+  height,
+}: any) => {
   return (
     <TouchableOpacity
-      style={[styles.button, disabled && styles.buttonDisabled, {width: width}]}
+      style={[
+        styles.button,
+        disabled && styles.buttonDisabled,
+        {width: width, borderRadius: borderRadius ?? 8, height: height ?? 50},
+      ]}
       onPress={!disabled ? onPress : null}
       disabled={disabled}>
       <Text style={[styles.text, disabled && styles.textDisabled]}>
@@ -71,15 +82,12 @@ const styles = StyleSheet.create({
   button: {
     backgroundColor: '#6679c0',
     padding: 10,
-    borderRadius: 5,
-    width: 320,
-    height: 50,
+    height: 60,
     color: appStyles.Text.color,
     textAlign: 'center',
     justifyContent: 'center',
     alignItems: 'center',
     display: 'flex',
-    // marginBottom: 0,
   },
   buttonDisabled: {
     backgroundColor: appStyles.Text.color,
@@ -89,7 +97,7 @@ const styles = StyleSheet.create({
     color: 'white',
     textAlign: 'center',
     fontWeight: 'bold',
-    fontSize: 18,
+    fontSize: 20,
     padding: 3,
   },
   textDisabled: {
@@ -128,7 +136,7 @@ const styles = StyleSheet.create({
   },
   imageIconContainer: {
     flexDirection: 'row',
-    width: 320,
+    width: appStyles.screenWidth.width * 0.9,
     height: 50,
     alignItems: 'center',
     justifyContent: 'center',

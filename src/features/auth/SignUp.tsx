@@ -69,7 +69,7 @@ const SignUp = ({navigation}: any) => {
 
   return (
     <View style={styles.container}>
-      <ScrollView>
+      <ScrollView contentContainerStyle={styles.scrollContainer}>
         <View style={styles.innerContainer}>
           <View style={styles.viewHeader}>
             <Image
@@ -179,7 +179,7 @@ const SignUp = ({navigation}: any) => {
                   KeyBoardType="default"
                   onChangeTextBox={onChange}
                   placeholder="Password"
-                  onRightImagePress={setIsVisible}
+                  onRightImagePress={() => setIsVisible(!isVisible)}
                   onBlur={onBlur}
                   leftImageUrl={require('../../assets/icons8-lock-48.png')}
                   rightImageUrl={
@@ -200,12 +200,12 @@ const SignUp = ({navigation}: any) => {
               onPress={handleSubmit(onSubmit)}
               title="Sign Up"
               disabled={!isValid}
-              width={320}
+              width={appStyles.screenWidth.width * 0.9}
             />
           </View>
           <View style={styles.textWrapperBottom}>
             <Text>
-              <Text style={styles.normalText}>Already have an account? </Text>{' '}
+              <Text style={styles.normalText}>Already have an account? </Text>
               <Text style={styles.linkText} onPress={handleSignUp}>
                 Sign In
               </Text>
@@ -222,7 +222,12 @@ export default SignUp;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    justifyContent: 'center',
     backgroundColor: appStyles.background.color,
+  },
+  scrollContainer: {
+    flex: 1,
+    justifyContent: 'center',
   },
   innerContainer: {
     paddingTop: 8,
