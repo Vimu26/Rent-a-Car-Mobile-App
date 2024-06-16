@@ -1,5 +1,12 @@
 import React from 'react';
-import {Image, StyleSheet, Text, View, TouchableOpacity} from 'react-native';
+import {
+  Image,
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  SafeAreaView,
+} from 'react-native';
 import {appStyles} from '../../themes/Common-theme';
 
 export interface IHeadingWithBack {
@@ -9,44 +16,60 @@ export interface IHeadingWithBack {
 
 const HeaderWithBackButton = ({heading, navigation}: IHeadingWithBack) => {
   return (
-    <TouchableOpacity
-      onPress={() => {
-        navigation.goBack();
-      }}
-      style={styles.container}>
-      <View style={styles.innerContainer}>
-        <View style={styles.image}>
-          <Image source={require('../../assets/common/icons8-back-48.png')} />
+    <SafeAreaView style={styles.safeArea2}>
+      <View style={styles.headerUp}>
+        <View style={styles.backImageContainer}>
+          <TouchableOpacity
+            onPress={() => {
+              navigation.goBack();
+            }}>
+            <Image
+              source={require('../../assets/common/icons8-back-48.png')}
+              style={styles.backImage}
+            />
+          </TouchableOpacity>
         </View>
-        <Text style={styles.heading}>{heading}</Text>
+        <View style={styles.upText}>
+          <TouchableOpacity>
+            <Text style={styles.upText2}>{heading}</Text>
+          </TouchableOpacity>
+        </View>
       </View>
-    </TouchableOpacity>
+    </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
+  headerUp: {
     backgroundColor: appStyles.background.color,
-    height: 60,
-    paddingTop: 15,
-  },
-  innerContainer: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    flex: 1,
     flexDirection: 'row',
+    alignItems: 'center',
+    paddingHorizontal: 20,
+    height: appStyles.screenHeight.height * 0.06,
   },
-  image: {
+  backImage: {
+    //
+  },
+  backImageContainer: {
     flex: 1,
+    alignItems: 'flex-start',
+  },
+  upText: {
+    flex: 80,
     alignItems: 'center',
   },
-  heading: {
-    flex: 5,
-    textAlign: 'center',
-    fontSize: 25,
+  upText2: {
     color: appStyles.Text.color,
-    marginLeft: '-20%',
+    fontSize: 30,
     fontWeight: 'bold',
+  },
+  safeArea: {
+    flex: 1,
+    backgroundColor: appStyles.cardContainer.color,
+  },
+  safeArea2: {
+    flex: 1,
+    backgroundColor: appStyles.background.color,
   },
 });
 

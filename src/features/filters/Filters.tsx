@@ -65,8 +65,8 @@ const Filters = () => {
               <CustomInputBox
                 onChange={onChange}
                 value={value}
-                width={140}
-                height={60}
+                width={appStyles.screenWidth.width * 0.45}
+                height={appStyles.screenHeight.height * 0.05}
                 placeHolder={'0'}
                 label={'Min Price/day ($)'}
                 keyBoardType={'numeric'}
@@ -81,8 +81,8 @@ const Filters = () => {
               <CustomInputBox
                 onChange={onChange}
                 value={value}
-                width={140}
-                height={60}
+                width={appStyles.screenWidth.width * 0.45}
+                height={appStyles.screenHeight.height * 0.05}
                 placeHolder={'0'}
                 label={'Max Price/day ($)'}
                 keyBoardType={'numeric'}
@@ -92,33 +92,70 @@ const Filters = () => {
             name="max"
           />
         </View>
-        <View style={styles.ratingContainer}>
-          <Controller
-            control={control}
-            render={({field: {onChange}}) => (
-              <RatingSelector onChange={onChange} defaultRating={0} />
-            )}
-            name="rating"
-          />
+        <View style={styles.container2}>
+          <View style={styles.brandContainer}>
+            <Text style={styles.label}>Car Brand</Text>
+            <Controller
+              control={control}
+              render={({field: {onChange, onBlur, value}}) => (
+                <CommonSelectDropDown
+                  data={data}
+                  dropDownHeight={200}
+                  width={appStyles.screenWidth.width * 0.95}
+                  placeholder={'Brand'}
+                  value={value}
+                  onBlur={onBlur}
+                  onChange={onChange}
+                  search={true}
+                />
+              )}
+              name="brand"
+            />
+          </View>
         </View>
-        <View style={styles.brandContainer}>
-          <Text style={styles.label}>Car Brand</Text>
-          <Controller
-            control={control}
-            render={({field: {onChange, onBlur, value}}) => (
-              <CommonSelectDropDown
-                data={data}
-                dropDownHeight={200}
-                placeholder={'Brand'}
-                value={value}
-                onBlur={onBlur}
-                onChange={onChange}
-                search={true}
-              />
-            )}
-            name="brand"
-          />
+        <View style={styles.container2}>
+          <View style={styles.TransmissionContainer}>
+            <Text style={styles.label}>Transmission</Text>
+            <Controller
+              control={control}
+              render={({field: {onChange, onBlur, value}}) => (
+                <CommonSelectDropDown
+                  data={TransmissionData}
+                  dropDownHeight={200}
+                  placeholder={'Transmission'}
+                  value={value}
+                  width={appStyles.screenWidth.width * 0.95}
+                  onBlur={onBlur}
+                  onChange={onChange}
+                  search={true}
+                />
+              )}
+              name="transmission"
+            />
+          </View>
         </View>
+        <View style={styles.container2}>
+          <View style={styles.FuelContainer}>
+            <Text style={styles.label}>Fuel Type</Text>
+            <Controller
+              control={control}
+              render={({field: {onChange, onBlur, value}}) => (
+                <CommonSelectDropDown
+                  data={FuelData}
+                  dropDownHeight={200}
+                  width={appStyles.screenWidth.width * 0.95}
+                  placeholder={'Fuel Type'}
+                  value={value}
+                  onBlur={onBlur}
+                  onChange={onChange}
+                  search={true}
+                />
+              )}
+              name="fuelType"
+            />
+          </View>
+        </View>
+
         <View style={styles.yearContainer}>
           <Controller
             control={control}
@@ -126,8 +163,8 @@ const Filters = () => {
               <CustomInputBox
                 onChange={onChange}
                 value={value}
-                width={140}
-                height={60}
+                width={appStyles.screenWidth.width * 0.45}
+                height={appStyles.screenHeight.height * 0.05}
                 placeHolder={'0000'}
                 label={'Model Year'}
                 keyBoardType={'numeric'}
@@ -142,8 +179,8 @@ const Filters = () => {
               <CustomInputBox
                 onChange={onChange}
                 value={value}
-                width={140}
-                height={60}
+                width={appStyles.screenWidth.width * 0.45}
+                height={appStyles.screenHeight.height * 0.05}
                 placeHolder={'0'}
                 label={'Number of Seats'}
                 keyBoardType={'numeric'}
@@ -153,54 +190,29 @@ const Filters = () => {
             name="seats"
           />
         </View>
-        <View style={styles.TransmissionContainer}>
-          <Text style={styles.label}>Transmission</Text>
+        <View style={styles.ratingContainer}>
           <Controller
             control={control}
-            render={({field: {onChange, onBlur, value}}) => (
-              <CommonSelectDropDown
-                data={TransmissionData}
-                dropDownHeight={200}
-                placeholder={'Transmission'}
-                value={value}
-                onBlur={onBlur}
-                onChange={onChange}
-                search={true}
-              />
+            render={({field: {onChange}}) => (
+              <RatingSelector onChange={onChange} defaultRating={0} />
             )}
-            name="transmission"
-          />
-        </View>
-        <View style={styles.FuelContainer}>
-          <Text style={styles.label}>Fuel Type</Text>
-          <Controller
-            control={control}
-            render={({field: {onChange, onBlur, value}}) => (
-              <CommonSelectDropDown
-                data={FuelData}
-                dropDownHeight={200}
-                placeholder={'Fuel Type'}
-                value={value}
-                onBlur={onBlur}
-                onChange={onChange}
-                search={true}
-              />
-            )}
-            name="fuelType"
+            name="rating"
           />
         </View>
       </ScrollView>
-      <View style={styles.buttonContainer}>
-        <SecondaryBorderButton
-          onPress={() => reset()}
-          title={'Reset Filters'}
-          width={170}
-        />
-        <PrimaryFullButton
-          onPress={handleSubmit(onSubmit)}
-          title="Filter"
-          width={170}
-        />
+      <View style={styles.buttonOuter}>
+        <View style={styles.buttonContainer}>
+          <SecondaryBorderButton
+            onPress={() => reset()}
+            title={'Reset Filters'}
+            width={appStyles.screenWidth.width * 0.45}
+          />
+          <PrimaryFullButton
+            onPress={handleSubmit(onSubmit)}
+            title="Filter"
+            width={appStyles.screenWidth.width * 0.45}
+          />
+        </View>
       </View>
     </View>
   );
@@ -210,37 +222,40 @@ const styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
     backgroundColor: appStyles.background.color,
+    paddingTop: appStyles.screenHeight.height * 0.06,
   },
   scrollContainer: {
-    paddingHorizontal: 10,
-    paddingBottom: 80,
+    paddingBottom: appStyles.screenHeight.height * 0.12,
   },
   priceContainer: {
     flexDirection: 'row',
     justifyContent: 'space-around',
     marginTop: 20,
   },
+  buttonOuter: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginHorizontal: appStyles.screenWidth.width * 0.025,
+  },
   buttonContainer: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
     position: 'absolute',
-    bottom: 0,
+    bottom: 25,
     left: 0,
     right: 0,
-    padding: 10,
+    justifyContent: 'space-between',
     backgroundColor: appStyles.background.color,
   },
   ratingContainer: {
-    marginTop: 15,
     justifyContent: 'center',
     alignItems: 'center',
   },
   brandContainer: {
     marginTop: 15,
+    width: appStyles.screenWidth.width * 0.95,
   },
   yearContainer: {
-    marginTop: 15,
+    marginVertical: appStyles.screenHeight.height * 0.04,
     justifyContent: 'space-around',
     alignItems: 'center',
     flexDirection: 'row',
@@ -250,12 +265,21 @@ const styles = StyleSheet.create({
     marginBottom: 3,
     fontSize: 16,
     fontWeight: '600',
+    width: appStyles.screenWidth.width * 0.95,
   },
   TransmissionContainer: {
     marginTop: 15,
+    width: appStyles.screenWidth.width * 0.95,
+  },
+  container2: {
+    width: appStyles.screenWidth.width,
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: appStyles.screenHeight.height * 0.1,
   },
   FuelContainer: {
     marginTop: 15,
+    width: appStyles.screenWidth.width * 0.95,
   },
 });
 
