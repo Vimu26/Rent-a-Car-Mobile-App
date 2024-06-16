@@ -13,13 +13,20 @@ type TouchableBarProps = {
   heading: string;
   leftIcon: ImageSourcePropType;
   rightIcon?: ImageSourcePropType;
+  onPress: (heading: string) => void;
 };
 
-const TouchableBar = ({heading, leftIcon, rightIcon}: TouchableBarProps) => {
+const TouchableBar = ({
+  heading,
+  leftIcon,
+  rightIcon,
+  onPress,
+}: TouchableBarProps) => {
   return (
     <View style={styles.container}>
       <TouchableOpacity
-        style={rightIcon ? styles.innerContainer : styles.innerContainer2}>
+        style={rightIcon ? styles.innerContainer : styles.innerContainer2}
+        onPress={() => onPress(heading)}>
         <Image style={styles.img} source={leftIcon} />
         <Text style={rightIcon ? styles.text : styles.t2}>{heading}</Text>
         {rightIcon && <Image style={styles.img} source={rightIcon} />}
