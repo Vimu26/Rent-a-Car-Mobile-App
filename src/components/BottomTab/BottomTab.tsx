@@ -3,9 +3,9 @@ import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Home from '../../features/Home/Home';
 import Favorite from '../../features/Favorite/Favorite';
-import Profile from '../../features/Profile/Profile';
 import {Image, StyleSheet, View, TouchableOpacity, Text} from 'react-native';
 import {appStyles} from '../../themes/Common-theme';
+import ProfileStackNavigator from '../../features/Profile/ProfileStackNavigator';
 
 const Tab = createBottomTabNavigator();
 
@@ -95,7 +95,7 @@ const BottomTabNavigator = () => {
       tabBar={props => tabBar({...props})}>
       <Tab.Screen name="Favorite" component={Favorite} />
       <Tab.Screen name="HomePage" component={Home} />
-      <Tab.Screen name="Profile" component={Profile} />
+      <Tab.Screen name="Profile" component={ProfileStackNavigator} />
     </Tab.Navigator>
   );
 };

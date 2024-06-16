@@ -461,7 +461,7 @@ const styles = StyleSheet.create({
     height: 240,
     rowGap: 10,
     gap: 10,
-    justifyContent: 'center', // Center the car cards horizontally
+    justifyContent: 'center',
   },
   loadingContainer: {
     flex: 1,
@@ -475,7 +475,6 @@ const styles = StyleSheet.create({
   loadMoreContainer: {
     alignItems: 'center',
     justifyContent: 'center',
-    // marginVertical: 20,
     margin: 'auto',
   },
   loadMore: {
