@@ -24,7 +24,7 @@ const HeaderWithBackButton = ({heading, navigation}: IHeadingWithBack) => {
               navigation.goBack();
             }}>
             <Image
-              source={require('../../assets/common/icons8-back-48.png')}
+              source={require('../../assets/common/icons8-back-100.png')}
               style={styles.backImage}
             />
           </TouchableOpacity>
@@ -44,24 +44,25 @@ const styles = StyleSheet.create({
     backgroundColor: appStyles.background.color,
     flexDirection: 'row',
     alignItems: 'center',
-    paddingHorizontal: 20,
     height: appStyles.screenHeight.height * 0.06,
   },
   backImage: {
-    //
+    width: 30,
+    height: 30,
   },
   backImageContainer: {
     flex: 1,
-    alignItems: 'flex-start',
+    alignItems: 'center',
   },
   upText: {
-    flex: 80,
+    flex: 7,
     alignItems: 'center',
   },
   upText2: {
     color: appStyles.Text.color,
     fontSize: 30,
     fontWeight: 'bold',
+    marginLeft: -(appStyles.screenWidth.width * 0.15),
   },
   safeArea: {
     flex: 1,

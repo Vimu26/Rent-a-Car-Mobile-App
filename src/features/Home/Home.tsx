@@ -329,7 +329,7 @@ const styles = StyleSheet.create({
   },
   bannerCard: {
     flexDirection: 'row',
-    gap: 5,
+    justifyContent: 'space-between',
     paddingVertical: 10,
     paddingLeft: 10,
     marginBottom: 20,
@@ -350,14 +350,15 @@ const styles = StyleSheet.create({
     //
   },
   bannerImage: {
-    maxWidth: 130,
-    height: 70,
+    width: appStyles.screenWidth.width * 0.4,
+    height: appStyles.screenHeight.height * 0.11,
     justifyContent: 'center',
     alignItems: 'center',
   },
   bannerImageContainer: {
     justifyContent: 'center',
     alignItems: 'center',
+    paddingHorizontal: 5,
   },
   heading: {
     fontSize: 16,
