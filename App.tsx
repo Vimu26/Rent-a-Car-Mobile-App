@@ -45,7 +45,7 @@ function App(): React.JSX.Element {
           <View style={styles.backImageContainer}>
             <TouchableOpacity onPress={goBack}>
               <Image
-                source={require('./src/assets/common/icons8-back-48.png')}
+                source={require('./src/assets/common/icons8-back-100.png')}
                 style={styles.backImage}
               />
             </TouchableOpacity>
