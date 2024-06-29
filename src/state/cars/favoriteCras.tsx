@@ -16,8 +16,11 @@ const FavCarSlice = createSlice({
     setFavCars: (state, action: PayloadAction<ITopRatedCars[]>) => {
       state.favCars = action.payload;
     },
+    reset: state => {
+      state.favCars = [];
+    },
   },
 });
 
-export const {setFavCars} = FavCarSlice.actions;
+export const {setFavCars, reset} = FavCarSlice.actions;
 export default FavCarSlice.reducer;
