@@ -14,6 +14,7 @@ import ViewCars from './src/features/cars/ViewCars';
 import Filters from './src/features/filters/Filters';
 import HeaderWithBackButton from './src/components/HeaderWithBackButton/HeaderWithBackButton';
 import {SafeAreaView} from 'react-native-safe-area-context';
+import AccountInformation from './src/features/Profile/AccountInformation/AccountInformation';
 
 function App(): React.JSX.Element {
   const Stack = createNativeStackNavigator();
@@ -134,6 +135,20 @@ function App(): React.JSX.Element {
             header: ({navigation}) => (
               <HeaderWithBackButton
                 heading={'Filters'}
+                navigation={navigation}
+              />
+            ),
+            // headerBackVisible: false,
+            // headerShown: true,
+          }}
+        />
+        <Stack.Screen
+          name="AccountInformation"
+          component={AccountInformation}
+          options={{
+            header: ({navigation}) => (
+              <HeaderWithBackButton
+                heading={'Account'}
                 navigation={navigation}
               />
             ),

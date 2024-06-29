@@ -12,7 +12,7 @@ const Profile = ({navigation}: any) => {
     console.log(screenName);
     switch (screenName) {
       case PROFILE_CLICKS.ACCOUNT_INFORMATION:
-        // navigation.navigate('AccountInformation');
+        navigation.navigate('AccountInformation');
         break;
       case PROFILE_CLICKS.TERMS_OF_SERVICE:
         // navigation.navigate('TermsOfService');
