@@ -143,6 +143,7 @@ const Home = ({navigation}: any) => {
       setLoading(false);
     }
   };
+
   const getCarsByBrand = async (brand: CAR_BRANDS) => {
     try {
       const response = await axios.get('http://localhost:3200/api/cars', {
