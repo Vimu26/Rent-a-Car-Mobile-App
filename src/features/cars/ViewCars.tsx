@@ -55,24 +55,9 @@ const ViewCars = () => {
 
   const favToggled = (id: string) => {
     if (FavCars.some(favCar => favCar._id.toString() === id.toString())) {
-      // const updatedFavorites = FavCars.filter(favCar => favCar._id !== car._id);
-      // dispatch(setFavCars(updatedFavorites));
-      console.log('d');
       return FavCars;
     } else {
-      console.log('x');
-
-      // const favoriteCar = {
-      //   _id: car._id,
-      //   brand: car.brand,
-      //   car_name: car.car_name,
-      //   price_per_day: car.price_per_day,
-      //   rate: car.rate,
-      //   seats: car.seats,
-      //   transmission: car.transmission,
-      //   speed: car.speed,
-      // };
-      const car = cars.find(car => id === car._id);
+      const car = cars.find(carDetails => id === carDetails._id);
       if (car) {
         const favoriteCar = {
           _id: car._id,
